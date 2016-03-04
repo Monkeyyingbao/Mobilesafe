@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">手机安全卫士</string>
+    <string name="version_url">http://192.168.1.7:8080/version.json</string>
 </resources>
