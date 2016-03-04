@@ -1,6 +1,8 @@
 package com.itsafe.phone;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -40,14 +42,29 @@ public class SplashActivity extends Activity {
             //            String description = (String) msg.obj;
             //            Toast.makeText(SplashActivity.this, description, Toast.LENGTH_SHORT).show();
             switch (msg.what) {
+                //提示当前是最新版
                 case StrUtils.BEST_VERSION:
                     String str = (String) msg.obj;
-                    Toast.makeText(SplashActivity.this, str, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
                     break;
+                //新版本提示
+                case StrUtils.IS_UPDATE:
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
+                    builder.setTitle("下载新版本"+mVersionName);
+                    builder.setMessage(VersionInfo.description);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //下载apk
+                        }
+                    });
+                    builder.setNegativeButton("取消", null);
+                    builder.show();
             }
         }
     };
     private int mVersionCode;//当前版本号
+    private String mVersionName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +92,8 @@ public class SplashActivity extends Activity {
         try {
             PackageInfo info = pm.getPackageInfo(this.getPackageName(), 0);
             mVersionCode = info.versionCode;
-            mTv_version.setText(info.versionName+mVersionCode);
+            mVersionName = info.versionName;
+            mTv_version.setText(mVersionName+mVersionCode);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -88,7 +106,12 @@ public class SplashActivity extends Activity {
             public void onAnimationStart(Animation animation) {
                 System.out.println("动画开始");
                 //动画开始:初始化数据(子线程),初始化网络(子线程),版本更新
-                checkVersion();
+                //如果用户勾选了应用更新提示,要执行版本检测
+                if (SPUtils.getBoolean(SplashActivity.this, StrUtils.AUTO_CHECK_VERSION, true)) {
+                    checkVersion();
+                } else {
+                    //等动画播放
+                }
             }
 
             @Override
@@ -111,18 +134,23 @@ public class SplashActivity extends Activity {
                 System.out.println("开始请求网络");
                 //请求网络数据,定义方法
                 readUrlData();
+        //判断是否需要更新,并提示
+                System.out.println("判断是否需要更新,并提示");
+                if (mVersionCode == VersionInfo.versionCode) {
+                    //提示提示最新版
+                    Message msg = Message.obtain();
+                    msg.what = StrUtils.BEST_VERSION;
+                    msg.obj = "已是最新版";
+                    mHandler.sendMessage(msg);
+                } else {
+                    //提示有新版本,是否更新+新版本描述
+                    Message msg = Message.obtain();
+                    msg.what = StrUtils.IS_UPDATE;
+                    mHandler.sendMessage(msg);
+                    Log.i("update", "run: "+"告诉handler有新版本");
+                }
             }
         }.start();
-        //判断是否需要更新,并提示
-        if (mVersionCode == Integer.parseInt(VersionInfo.versionCode)) {
-            //提示提示最新版
-            Message msg = Message.obtain();
-            msg.what = StrUtils.BEST_VERSION;
-            msg.obj = "已是最新版";
-            mHandler.sendMessage(msg);
-        } else {
-            //提示有新版本,是否更新+新版本描述
-        }
     }
 
     private void readUrlData() {
@@ -138,7 +166,7 @@ public class SplashActivity extends Activity {
             System.out.println("结果码"+code);
             if (code == 200) {
                 InputStream is = conn.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(is,"gb2312"));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "gb2312"));
                 StringBuilder sb = new StringBuilder();
                 String line = reader.readLine();
                 while (line != null) {
@@ -149,11 +177,13 @@ public class SplashActivity extends Activity {
                 String json = sb.toString();
                 //解析json数据
                 JSONObject jsonObject = new JSONObject(json);
-                VersionInfo.versionCode = jsonObject.getString("versioncode");
+                VersionInfo.versionCode = jsonObject.getInt("versioncode");
                 VersionInfo.versionName = jsonObject.getString("versionname");
                 VersionInfo.description = jsonObject.getString("description");
                 VersionInfo.download = jsonObject.getString("download");
-                Log.i("json", "readUrlData: "+ VersionInfo.versionCode+VersionInfo.versionName+VersionInfo.description+VersionInfo.download);
+                Log.i("json", "readUrlData: " + VersionInfo.versionCode + VersionInfo.versionName + VersionInfo.description + VersionInfo.download);
+            } else {
+                //请求网络失败,无法检测更新
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -166,7 +196,7 @@ public class SplashActivity extends Activity {
     }
 
     private static class VersionInfo {
-        private static String versionCode;
+        private static int versionCode;
         private static String versionName;
         private static String description;
         private static String download;
