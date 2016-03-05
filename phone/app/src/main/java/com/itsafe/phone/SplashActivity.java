@@ -3,11 +3,15 @@ package com.itsafe.phone;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
@@ -19,10 +23,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -39,30 +49,85 @@ public class SplashActivity extends Activity {
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            //            String description = (String) msg.obj;
-            //            Toast.makeText(SplashActivity.this, description, Toast.LENGTH_SHORT).show();
+
             switch (msg.what) {
                 //提示当前是最新版
                 case StrUtils.BEST_VERSION:
                     String str = (String) msg.obj;
                     Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+                    startHome();
                     break;
                 //新版本提示
                 case StrUtils.IS_UPDATE:
                     AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
-                    builder.setTitle("下载新版本"+mVersionName);
+                    builder.setTitle("下载新版本" + VersionInfo.versionName+VersionInfo.versionCode);
                     builder.setMessage(VersionInfo.description);
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //下载apk
+                            downloadAPK();
                         }
                     });
-                    builder.setNegativeButton("取消", null);
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startHome();
+                        }
+                    });
                     builder.show();
+                    break;
             }
         }
     };
+
+    private void downloadAPK() {
+        //xUtils下载
+        HttpUtils httpUtils = new HttpUtils();
+        final File sdDir = Environment.getExternalStorageDirectory();
+        //先判断文件夹中是否存在,如果存在要先删除
+        File oldApk = new File(sdDir,"mobilesafe.apk");
+        if (oldApk.exists()) {
+            oldApk.delete();
+        }
+        httpUtils.download(VersionInfo.download, sdDir.getAbsolutePath()+"/mobilesafe.apk",true,true, new RequestCallBack<File>() {
+            @Override
+            public void onSuccess(ResponseInfo<File> responseInfo) {
+                //下载成功提示安装
+                Toast.makeText(SplashActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
+               /*系统安装器的意图过滤器
+				<intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+                <data android:mimeType="application/vnd.android.package-archive" />
+                 </intent-filter>
+				 */
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                intent.addCategory("android.intent.category.DEFAULT");
+                File file = new File(Environment.getExternalStorageDirectory(),"mobilesafe.apk");
+                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+                startActivityForResult(intent,1);
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                //下载失败
+                Log.i("onFailure", "onFailure: "+s);
+                startHome();
+            }
+        });
+    }
+    //监控打开的Activity结果
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //返回主界面
+        startHome();
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     private int mVersionCode;//当前版本号
     private String mVersionName;
 
@@ -117,6 +182,10 @@ public class SplashActivity extends Activity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 //动画结束时进入主界面
+                if (SPUtils.getBoolean(SplashActivity.this, StrUtils.AUTO_CHECK_VERSION, true)) {
+                } else {
+                    startHome();
+                }
             }
 
             @Override
@@ -124,6 +193,13 @@ public class SplashActivity extends Activity {
 
             }
         });
+    }
+
+    private void startHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        Log.i("home", "startHome:进入了主界面 ");
+        finish();
     }
 
     private void checkVersion() {
@@ -153,7 +229,11 @@ public class SplashActivity extends Activity {
         }.start();
     }
 
+    /**
+     * 联网检测结束后,要计算时间,如果过快要延时,等带动画播完
+     */
     private void readUrlData() {
+        long startTime = System.currentTimeMillis();
         //访问URL,了解数据格式,做json解析,http://192.168.1.7:8080/version.json
         //{"versioncode","1.0","versionname","土豆版","description","添加了NB功能","download","http://192.168.1.7:8080/mobile.apk"}
         try {
@@ -182,6 +262,10 @@ public class SplashActivity extends Activity {
                 VersionInfo.description = jsonObject.getString("description");
                 VersionInfo.download = jsonObject.getString("download");
                 Log.i("json", "readUrlData: " + VersionInfo.versionCode + VersionInfo.versionName + VersionInfo.description + VersionInfo.download);
+                long endTime = System.currentTimeMillis();
+                if ((endTime-startTime) < 2000) {
+                    SystemClock.sleep(2000 - (endTime - startTime));
+                }
             } else {
                 //请求网络失败,无法检测更新
             }
