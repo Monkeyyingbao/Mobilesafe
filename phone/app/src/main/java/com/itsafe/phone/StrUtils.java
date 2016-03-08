@@ -6,8 +6,9 @@ package com.itsafe.phone;
  *
  */
 public interface StrUtils {
-    int BEST_VERSION = 0;   //已是最新版本
+    int BEST_VERSION = 100;   //已是最新版本
     String SP_CONFIG = "config";    //配置文件名称
     String AUTO_CHECK_VERSION = "autocheck";    //自动检测版本
     int IS_UPDATE = 2;  //提示新版本
+    int FAIL_CONN = 400;
 }

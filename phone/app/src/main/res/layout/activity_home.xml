@@ -1,13 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.itsafe.phone.HomeActivity">
+    <RelativeLayout
+        android:background="@drawable/blue_bkg"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_home_logo"
+            android:src="@drawable/heima"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"/>
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_home_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="黑马程序员安全卫士"
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="黑马程序员安全卫士黑马程序员安全卫士黑马程序员安全卫士"
+                android:textSize="16sp"
+                android:textColor="#bbff0000"
+                android:singleLine="true"
+                android:layout_marginTop="5dp"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_home_setting"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/setting"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+    <GridView
+        android:id="@+id/gv_home_tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="2"
+        android:verticalSpacing="1dp"
+        android:horizontalSpacing="2dp"></GridView>
 
-</RelativeLayout>
+</LinearLayout>

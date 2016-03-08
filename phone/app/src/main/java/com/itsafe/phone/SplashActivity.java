@@ -53,8 +53,7 @@ public class SplashActivity extends Activity {
             switch (msg.what) {
                 //提示当前是最新版
                 case StrUtils.BEST_VERSION:
-                    String str = (String) msg.obj;
-                    Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SplashActivity.this, "已是最新版", Toast.LENGTH_SHORT).show();
                     startHome();
                     break;
                 //新版本提示
@@ -77,6 +76,26 @@ public class SplashActivity extends Activity {
                     });
                     builder.show();
                     break;
+                case StrUtils.FAIL_CONN:
+                    Toast.makeText(SplashActivity.this, "请求网络失败,无法检测更新", Toast.LENGTH_SHORT).show();
+                    startHome();
+                    break;
+                default:
+                    //默认处理异常
+                    switch (msg.what) {
+                        case 1001:
+                            Toast.makeText(SplashActivity.this, "MalformedURLException", Toast.LENGTH_SHORT).show();
+                            break;
+                        case 1002:
+                            Toast.makeText(SplashActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
+                            break;
+                        case 1003:
+                            Toast.makeText(SplashActivity.this, "JSONException", Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(SplashActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+                    }
+                    startHome();
             }
         }
     };
@@ -143,6 +162,9 @@ public class SplashActivity extends Activity {
         initEvent();
     }
 
+    /**
+     * 初始化界面
+     */
     private void initView() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash);
@@ -150,7 +172,9 @@ public class SplashActivity extends Activity {
         mTv_version = (TextView) findViewById(R.id.tv_version);
         initAnimation();
     }
-
+    /**
+     * 初始化数据
+     */
     private void initData() {
         //显示版本名称
         PackageManager pm = getPackageManager();
@@ -164,6 +188,9 @@ public class SplashActivity extends Activity {
         }
     }
 
+    /**
+     * 初始化事件
+     */
     private void initEvent() {
         //监听动画播放
         mAs.setAnimationListener(new Animation.AnimationListener() {
@@ -172,7 +199,7 @@ public class SplashActivity extends Activity {
                 System.out.println("动画开始");
                 //动画开始:初始化数据(子线程),初始化网络(子线程),版本更新
                 //如果用户勾选了应用更新提示,要执行版本检测
-                if (SPUtils.getBoolean(SplashActivity.this, StrUtils.AUTO_CHECK_VERSION, true)) {
+                if (SPUtils.getBoolean(SplashActivity.this, StrUtils.AUTO_CHECK_VERSION, false)) {
                     checkVersion();
                 } else {
                     //等动画播放
@@ -182,7 +209,7 @@ public class SplashActivity extends Activity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 //动画结束时进入主界面
-                if (SPUtils.getBoolean(SplashActivity.this, StrUtils.AUTO_CHECK_VERSION, true)) {
+                if (SPUtils.getBoolean(SplashActivity.this, StrUtils.AUTO_CHECK_VERSION, false)) {
                 } else {
                     startHome();
                 }
@@ -210,21 +237,7 @@ public class SplashActivity extends Activity {
                 System.out.println("开始请求网络");
                 //请求网络数据,定义方法
                 readUrlData();
-        //判断是否需要更新,并提示
-                System.out.println("判断是否需要更新,并提示");
-                if (mVersionCode == VersionInfo.versionCode) {
-                    //提示提示最新版
-                    Message msg = Message.obtain();
-                    msg.what = StrUtils.BEST_VERSION;
-                    msg.obj = "已是最新版";
-                    mHandler.sendMessage(msg);
-                } else {
-                    //提示有新版本,是否更新+新版本描述
-                    Message msg = Message.obtain();
-                    msg.what = StrUtils.IS_UPDATE;
-                    mHandler.sendMessage(msg);
-                    Log.i("update", "run: "+"告诉handler有新版本");
-                }
+
             }
         }.start();
     }
@@ -233,6 +246,7 @@ public class SplashActivity extends Activity {
      * 联网检测结束后,要计算时间,如果过快要延时,等带动画播完
      */
     private void readUrlData() {
+        Message msg = Message.obtain();
         long startTime = System.currentTimeMillis();
         //访问URL,了解数据格式,做json解析,http://192.168.1.7:8080/version.json
         //{"versioncode","1.0","versionname","土豆版","description","添加了NB功能","download","http://192.168.1.7:8080/mobile.apk"}
@@ -262,21 +276,38 @@ public class SplashActivity extends Activity {
                 VersionInfo.description = jsonObject.getString("description");
                 VersionInfo.download = jsonObject.getString("download");
                 Log.i("json", "readUrlData: " + VersionInfo.versionCode + VersionInfo.versionName + VersionInfo.description + VersionInfo.download);
-                long endTime = System.currentTimeMillis();
-                if ((endTime-startTime) < 2000) {
-                    SystemClock.sleep(2000 - (endTime - startTime));
+
+                //判断是否需要更新,并提示
+                System.out.println("判断是否需要更新,并提示");
+                if (mVersionCode == VersionInfo.versionCode) {
+                    //提示提示最新版
+                    msg.what = StrUtils.BEST_VERSION;
+                } else {
+                    //提示有新版本,是否更新+新版本描述
+                    msg.what = StrUtils.IS_UPDATE;
+                    Log.i("update", "run: " + "告诉handler有新版本");
                 }
             } else {
                 //请求网络失败,无法检测更新
+                Log.i("logi", "readUrlData: 请求网络失败,无法检测更新");
+                msg.what = StrUtils.FAIL_CONN;
             }
         } catch (MalformedURLException e) {
+            msg.what = 1001;
             e.printStackTrace();
         } catch (IOException e) {
+            msg.what = 1002;
             e.printStackTrace();
         } catch (JSONException e) {
+            msg.what = 1003;
             e.printStackTrace();
+        }finally {
+            long endTime = System.currentTimeMillis();
+            if ((endTime-startTime) < 2000) {
+                SystemClock.sleep(2000 - (endTime - startTime));
+            }
+        mHandler.sendMessage(msg);
         }
-
     }
 
     private static class VersionInfo {
