@@ -16,10 +16,19 @@ public class SPUtils {
      */
     public static void putBoolean(Context context,String key,Boolean value) {
         SharedPreferences sp = context.getSharedPreferences(StrUtils.SP_CONFIG,0);
-        sp.edit().putBoolean(key, value);
+        sp.edit().putBoolean(key, value).commit();
     }
-    public static boolean getBoolean(Context context,String key,Boolean Defaultval) {
+    public static boolean getBoolean(Context context,String key,Boolean defaultval) {
         SharedPreferences sp = context.getSharedPreferences(StrUtils.SP_CONFIG,0);
-        return sp.getBoolean(key, Defaultval);
+        return sp.getBoolean(key, defaultval);
+    }
+
+    public static void putString(Context context,String key,String value) {
+        SharedPreferences sp = context.getSharedPreferences(StrUtils.SP_CONFIG,0);
+        sp.edit().putString(key, value).commit();
+    }
+    public static String getString(Context context,String key,String defaultval) {
+        SharedPreferences sp = context.getSharedPreferences(StrUtils.SP_CONFIG,0);
+        return sp.getString(key, defaultval);
     }
 }

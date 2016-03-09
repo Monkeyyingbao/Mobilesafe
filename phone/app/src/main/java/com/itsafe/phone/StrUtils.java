@@ -11,4 +11,6 @@ public interface StrUtils {
     String AUTO_CHECK_VERSION = "autocheck";    //自动检测版本
     int IS_UPDATE = 2;  //提示新版本
     int FAIL_CONN = 400;
+    String PASSWORD = "password";//密码
+    String ISSETUPFINISH = "issetupfinish";
 }
