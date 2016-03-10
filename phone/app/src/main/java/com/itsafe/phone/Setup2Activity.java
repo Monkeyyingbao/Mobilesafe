@@ -1,13 +1,19 @@
 package com.itsafe.phone;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-public class Setup2Activity extends AppCompatActivity {
+public class Setup2Activity extends BaseSetupActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initView() {
         setContentView(R.layout.activity_setup2);
+    }
+
+    @Override
+    protected void startNext() {
+        startPage(Setup3Activity.class);
+    }
+
+    @Override
+    protected void startPrev() {
+        startPage(Setup1Activity.class);
     }
 }

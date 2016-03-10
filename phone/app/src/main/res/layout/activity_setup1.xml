@@ -8,11 +8,78 @@
     tools:context="com.itsafe.phone.Setup1Activity">
     <!-- 标题-->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
+        style="@style/title_style"
         android:text="1.欢迎使用手机防盗"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="#ffffff"
-        android:background="@drawable/blue_bkg"/>
+        />
+    <!-- 描述信息-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="您的手机防盗卫士"
+        />
+    <!-- 4个功能描述信息-->
+    <TextView
+        style="@style/lostfind_desc_style"
+        android:text="sim卡变更报警"/>
+
+    <TextView
+        style="@style/lostfind_desc_style"
+        android:text="GPS追踪"/>
+
+    <TextView
+        style="@style/lostfind_desc_style"
+        android:text="远程锁屏"/>
+
+    <TextView
+        style="@style/lostfind_desc_style"
+        android:text="远程清楚数据"/>
+    <!-- 四个点-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+        <!-- 选中的点-->
+        <View
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@android:drawable/presence_online"/>
+        <!-- 默认的点-->
+        <View
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@android:drawable/presence_invisible"/>
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@android:drawable/presence_invisible"/>
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@android:drawable/presence_invisible"/>
+    </LinearLayout>
+    <!-- 相对布局显示下一个菜单的按钮-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/step_1"
+            android:layout_centerInParent="true"
+            android:id="@+id/imageView"/>
+        <!-- 按钮-->
+        <ImageView
+            android:onClick="nextPage"
+            android:background="@drawable/dg_btn_confirm_select"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="下一个"
+            android:src="@drawable/next"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
 </LinearLayout>

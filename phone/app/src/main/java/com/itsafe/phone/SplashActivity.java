@@ -13,7 +13,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -59,6 +58,7 @@ public class SplashActivity extends Activity {
                 //新版本提示
                 case StrUtils.IS_UPDATE:
                     AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
+                    builder.setCancelable(false);//对话框不可撤销
                     builder.setTitle("下载新版本" + VersionInfo.versionName+VersionInfo.versionCode);
                     builder.setMessage(VersionInfo.description);
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -153,7 +153,8 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // TODO: 2016/3/10 模拟数据
+        SPUtils.putBoolean(getApplicationContext(),StrUtils.AUTO_CHECK_VERSION,false);
         //界面
         initView();
         //数据
@@ -166,7 +167,6 @@ public class SplashActivity extends Activity {
      * 初始化界面
      */
     private void initView() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash);
         mRl_splash = (RelativeLayout) findViewById(R.id.rl_splash);
         mTv_version = (TextView) findViewById(R.id.tv_version);
@@ -280,7 +280,7 @@ public class SplashActivity extends Activity {
                 //判断是否需要更新,并提示
                 System.out.println("判断是否需要更新,并提示");
                 if (mVersionCode == VersionInfo.versionCode) {
-                    //提示提示最新版
+                    //提示最新版
                     msg.what = StrUtils.BEST_VERSION;
                 } else {
                     //提示有新版本,是否更新+新版本描述

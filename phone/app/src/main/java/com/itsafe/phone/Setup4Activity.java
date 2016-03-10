@@ -1,13 +1,19 @@
 package com.itsafe.phone;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-public class Setup4Activity extends AppCompatActivity {
+public class Setup4Activity extends BaseSetupActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initView() {
         setContentView(R.layout.activity_setup4);
+    }
+
+    @Override
+    protected void startNext() {
+        startPage(LostFindActivity.class);
+    }
+
+    @Override
+    protected void startPrev() {
+        startPage(Setup3Activity.class);
     }
 }

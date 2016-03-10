@@ -1,13 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.itsafe.phone.Setup4Activity">
+    <!-- 标题-->
+    <TextView
+        style="@style/title_style"
+        android:text="4.恭喜您,设置完成"/>
 
-</RelativeLayout>
+    <!-- 开关防盗保护的复选框-->
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打钩开启防盗保护"
+        android:layout_marginLeft="5dp"/>
+
+    <!-- 描述信息-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="防盗保护已经关闭"
+        android:layout_marginLeft="10dp"/>
+
+
+    <!-- 四个点-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+        <!-- 默认的点-->
+        <View
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@android:drawable/presence_invisible"/>
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@android:drawable/presence_invisible"/>
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@android:drawable/presence_invisible"/>
+        <!-- 选中的点-->
+        <View
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@android:drawable/presence_online"/>
+    </LinearLayout>
+    <!-- 相对布局显示下一个菜单的按钮-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/step_4"/>
+        <!-- 上一个按钮-->
+        <ImageView
+            android:onClick="prevPage"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/dg_btn_confirm_select"
+            android:src="@drawable/pre"
+            />
+        <!-- 下一个按钮-->
+        <ImageView
+            android:onClick="nextPage"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/dg_btn_confirm_select"
+            android:src="@drawable/next"
+            />
+    </RelativeLayout>
+</LinearLayout>
