@@ -14,4 +14,5 @@ public interface StrUtils {
     String PASSWORD = "password";//密码
     String ISSETUPFINISH = "issetupfinish";
     String SIM_SERIAL_NUM = "SimSerialNumber";//sim卡序列号
+    String SAFENUMBER = "safenumber";//安全号码
 }

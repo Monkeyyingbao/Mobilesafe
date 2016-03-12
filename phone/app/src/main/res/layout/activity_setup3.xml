@@ -17,12 +17,15 @@
         android:text="sim卡如果发生变化:\n报警短信发给安全号码"/>
 
     <EditText
+        android:id="@+id/et_setup3_safenumber"
+        android:inputType="phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="输入安全密码"/>
 
-    <!-- 绑定/解绑按钮-->
+    <!-- 选择安全号码按钮-->
     <Button
+        android:onClick="selectSafeNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_bt_gv"
