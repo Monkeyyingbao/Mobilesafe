@@ -13,4 +13,5 @@ public interface StrUtils {
     int FAIL_CONN = 400;
     String PASSWORD = "password";//密码
     String ISSETUPFINISH = "issetupfinish";
+    String SIM_SERIAL_NUM = "SimSerialNumber";//sim卡序列号
 }

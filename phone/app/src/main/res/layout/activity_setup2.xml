@@ -9,7 +9,7 @@
     <!-- 标题-->
     <TextView
         style="@style/title_style"
-        android:text="1.手机卡的绑定"
+        android:text="2.手机卡的绑定"
         />
     <!-- 描述信息-->
     <TextView
@@ -23,6 +23,7 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:onClick="bindSIM"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_bt_gv"
@@ -30,6 +31,7 @@
             android:textColor="#ffffff"/>
         <!-- 图标-->
         <ImageView
+            android:id="@+id/iv_setup2_simbind_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

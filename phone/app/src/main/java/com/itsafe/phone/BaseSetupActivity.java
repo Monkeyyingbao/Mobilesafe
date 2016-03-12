@@ -3,12 +3,18 @@ package com.itsafe.phone;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
  * Created by Hello World on 2016/3/10.
  */
 public abstract class BaseSetupActivity extends Activity {
+
+    private GestureDetector mGD;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +23,52 @@ public abstract class BaseSetupActivity extends Activity {
         initEvent();
 
         initData();
+
+        initGesture();
+    }
+
+    /**
+     * 添加手势识别器
+     */
+    protected void initGesture() {
+        mGD = new GestureDetector(new MyOnGestureListener(){
+            /**
+             *
+             * @param e1 按下的点
+             * @param e2 松开的点
+             * @param velocityX 速度x轴
+             * @param velocityY 速度y轴
+             * @return
+             */
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                //判断是否是x轴方向滑动
+                if (Math.abs(e1.getX() - e2.getX()) > Math.abs(e1.getY() - e2.getY())) {
+                    //横向滑动
+                    //判断速度
+                    if (Math.abs(velocityX) > 50) {
+                        //判断方向
+                        if (velocityX > 0) {
+                            Log.i("velocityX", "onFling: 从左往右划");
+                            prevPage(null);
+                        } else {
+                            Log.i("velocityX", "onFling: 从右往左划");
+                            nextPage(null);
+                        }
+                    }
+                }
+                return true;
+            }
+        });
+    }
+    //注册滑动事件
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (mGD != null) {
+            mGD.onTouchEvent(event);
+            return true;
+        }
+        return super.onTouchEvent(event);
     }
 
     //开启界面的接口方法
@@ -79,4 +131,37 @@ public abstract class BaseSetupActivity extends Activity {
     protected void initView() {
 
     }
+    private class MyOnGestureListener implements GestureDetector.OnGestureListener {
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return false;
+        }
+
+        @Override
+        public void onShowPress(MotionEvent e) {
+
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return false;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            return false;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            return false;
+        }
+    }
 }
+
