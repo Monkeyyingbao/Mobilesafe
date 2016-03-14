@@ -15,4 +15,5 @@ public interface StrUtils {
     String ISSETUPFINISH = "issetupfinish";
     String SIM_SERIAL_NUM = "SimSerialNumber";//sim卡序列号
     String SAFENUMBER = "safenumber";//安全号码
+    String BOOTCOMPLETE = "bootcomplete";
 }

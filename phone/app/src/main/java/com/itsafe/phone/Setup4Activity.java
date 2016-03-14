@@ -71,6 +71,8 @@ public class Setup4Activity extends BaseSetupActivity {
         } else {
             //完成设置,保存设置状态
             SPUtils.putBoolean(getApplicationContext(), StrUtils.ISSETUPFINISH,true);
+            //添加系统启动自动开启防盗服务
+            SPUtils.putBoolean(getApplication(),StrUtils.BOOTCOMPLETE,true);
             startPage(LostFindActivity.class);
         }
     }
