@@ -11,39 +11,66 @@
         style="@style/title_style"
         android:text="手机防盗"
         />
-    <!-- 防盗保护是否开启-->
+    <!-- 显示安全号码-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/dg_btn_confirm_select">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="防盗保护是否开启"
-            android:background="@drawable/selector_bt_gv"
+            android:text="安全号码"
+            android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:textColor="#ffffff"
-            android:clickable="true"/>
+            android:textColor="#ffffff"/>
         <!-- 图标-->
+        <TextView
+            android:id="@+id/tv_lostfind_safenumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:text="11111"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <!-- 防盗保护是否开启 -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dg_btn_confirm_select"
+            android:gravity="center_vertical"
+            android:text="防盗保护是否开启"
+            android:textColor="#ffffff" />
+
+        <!-- 标记是否绑定sim卡的图标 -->
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/unlock"/>
-
+            android:layout_marginRight="5dip"
+            android:src="@drawable/lock" />
     </RelativeLayout>
+    <!-- 重新进入设置向导界面 -->
 
-    <!-- 重新进入设置向导界面-->
     <TextView
-        android:text="重新进入设置向导界面"
-        android:layout_width="match_parent"
+
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_bt_gv"
+        android:background="@drawable/dg_btn_confirm_select"
+        android:clickable="true"
+        android:onClick="enterSetup1"
         android:gravity="center_vertical"
-        android:textColor="#ffffff"
-        android:clickable="true"/>
+        android:text="重新进入设置向导界面"
+        android:textColor="#ffffff" />
     <!-- 4个功能描述信息-->
     <TextView
         style="@style/lostfind_desc_style"

@@ -1,4 +1,4 @@
-package com.itsafe.phone;
+package com.itsafe.phone.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

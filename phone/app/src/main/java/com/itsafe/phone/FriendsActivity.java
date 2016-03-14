@@ -2,17 +2,21 @@ package com.itsafe.phone;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.itsafe.phone.dao.ContactsDao;
 import com.itsafe.phone.domain.ContactBean;
+import com.itsafe.phone.utils.StrUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +41,28 @@ public class FriendsActivity extends ListActivity {
         initView();
 
         initData();
+
+        initEvent();
+    }
+
+    private void initEvent() {
+        //给listView添加item点击事件
+        lv_datas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //获取点击item数据
+                //该方法会调用adapter的getItem方法
+                ContactBean bean = (ContactBean) lv_datas.getItemAtPosition((int) lv_datas.getItemIdAtPosition(position));
+                //保存数据
+                Intent data = new Intent();
+                //设置安全号码
+                data.putExtra(StrUtils.SAFENUMBER, bean.getPhone());
+                setResult(1,data );
+                //关闭自己
+                finish();
+
+            }
+        });
     }
 
     private Handler mHandler = new Handler(){
@@ -46,6 +72,7 @@ public class FriendsActivity extends ListActivity {
             //在主线程中执行
             switch (msg.what) {
                 case LOADING:
+                    lv_datas.setVisibility(View.GONE);
                     //通过对话框来显示加载数据
                     pd = new ProgressDialog(FriendsActivity.this);
                     pd.setTitle("注意");
@@ -55,6 +82,7 @@ public class FriendsActivity extends ListActivity {
                 case FINISH:
                     //关闭对话框
                     pd.dismiss();
+                    lv_datas.setVisibility(View.VISIBLE);
                     //更新数据
                     mAdapter.notifyDataSetChanged();//通知界面刷新数据
                     break;
@@ -73,6 +101,8 @@ public class FriendsActivity extends ListActivity {
                 mDatas = ContactsDao.getContacts(getApplicationContext());
                 //3.数据加载完成
                 //发送数据加载完成的消息
+                //模拟耗时1秒
+                SystemClock.sleep(1000);
                 mHandler.obtainMessage(FINISH).sendToTarget();
 
             }
@@ -87,13 +117,14 @@ public class FriendsActivity extends ListActivity {
         }
 
         @Override
-        public Object getItem(int position) {
-            return null;
+        public ContactBean getItem(int position) {
+            //获取适配器中的数据
+            return mDatas.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return 0;
+            return position;
         }
 
         @Override
@@ -115,7 +146,7 @@ public class FriendsActivity extends ListActivity {
             }
 
             //获取数据
-            ContactBean bean = mDatas.get(position);
+            ContactBean bean = getItem(position);
             //设置数据
             holder.tv_name.setText(bean.getName());
             holder.tv_phone.setText(bean.getPhone());

@@ -5,6 +5,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.itsafe.phone.utils.SPUtils;
+import com.itsafe.phone.utils.ShowToast;
+import com.itsafe.phone.utils.StrUtils;
+
 public class Setup3Activity extends BaseSetupActivity {
 
     private EditText mEt_safenumber;
@@ -29,14 +33,20 @@ public class Setup3Activity extends BaseSetupActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //获取选择的好友
+        //判断如果有数据就进行回显
+        if (data != null) {
+            //获取选择的好友
+            String safeNum = data.getStringExtra(StrUtils.SAFENUMBER);
+            //显示在编辑框中
+            mEt_safenumber.setText(safeNum);
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     protected void initData() {
         //回显号码
-        mEt_safenumber.setText(SPUtils.getString(this,StrUtils.SAFENUMBER,""));
+        mEt_safenumber.setText(SPUtils.getString(this, StrUtils.SAFENUMBER, ""));
         //设置光标停留的位置
         mEt_safenumber.setSelection(mEt_safenumber.getText().toString().trim().length());
     }

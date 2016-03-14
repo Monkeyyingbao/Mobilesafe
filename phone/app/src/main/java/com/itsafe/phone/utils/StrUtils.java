@@ -1,4 +1,4 @@
-package com.itsafe.phone;
+package com.itsafe.phone.utils;
 
 /**
  * 放置常量

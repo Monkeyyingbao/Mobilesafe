@@ -13,6 +13,7 @@
 
     <!-- 开关防盗保护的复选框-->
     <CheckBox
+        android:id="@+id/cb_setup4_isopenlostfind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="打钩开启防盗保护"
@@ -20,6 +21,7 @@
 
     <!-- 描述信息-->
     <TextView
+        android:id="@+id/tv_setup4_showstate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="防盗保护已经关闭"

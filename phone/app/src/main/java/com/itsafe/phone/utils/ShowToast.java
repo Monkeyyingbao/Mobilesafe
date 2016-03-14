@@ -1,4 +1,4 @@
-package com.itsafe.phone;
+package com.itsafe.phone.utils;
 
 import android.app.Activity;
 import android.widget.Toast;

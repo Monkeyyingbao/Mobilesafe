@@ -19,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.itsafe.phone.utils.Md5Utils;
+import com.itsafe.phone.utils.SPUtils;
+import com.itsafe.phone.utils.StrUtils;
+
 public class HomeActivity extends Activity {
 
     private ImageView mIv_logo;//logo旋转图标

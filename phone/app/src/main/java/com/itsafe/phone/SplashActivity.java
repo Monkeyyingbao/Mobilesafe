@@ -22,6 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.itsafe.phone.utils.SPUtils;
+import com.itsafe.phone.utils.StrUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -154,7 +156,7 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: 2016/3/10 模拟数据
-        SPUtils.putBoolean(getApplicationContext(),StrUtils.AUTO_CHECK_VERSION,false);
+        SPUtils.putBoolean(getApplicationContext(), StrUtils.AUTO_CHECK_VERSION, false);
         //界面
         initView();
         //数据

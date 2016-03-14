@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.itsafe.phone.utils.SPUtils;
+import com.itsafe.phone.utils.StrUtils;
+
 public class Setup2Activity extends BaseSetupActivity {
 
     private ImageView mIv_setup2_simbind_icon;
