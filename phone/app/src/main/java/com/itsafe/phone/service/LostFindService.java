@@ -1,7 +1,9 @@
 package com.itsafe.phone.service;
 
 import android.app.Service;
+import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -10,6 +12,7 @@ import android.os.IBinder;
 import android.telephony.SmsMessage;
 
 import com.itsafe.phone.R;
+import com.itsafe.phone.receiver.MyDeviceAdminReceiver;
 
 /**
  * 手机防盗服务
@@ -17,6 +20,8 @@ import com.itsafe.phone.R;
 public class LostFindService extends Service {
 
     private SmsReceiver mSmsReceiver;
+    private ComponentName mDeviceAdminSample;
+    private DevicePolicyManager mDPM;
 
     public LostFindService() {
     }
@@ -59,10 +64,15 @@ public class LostFindService extends Service {
                     System.out.println("定位信息");
                     abortBroadcast();
                 }else if (body.equals("*#wipedata*#")) {
+                    mDPM.wipeData(DevicePolicyManager.WIPE_EXTERNAL_STORAGE);
                     System.out.println("远程清理数据");
                     abortBroadcast();
                 }else if (body.equals("*#lockscreen*#")) {
                     System.out.println("远程锁屏");
+                    //重置密码
+                    mDPM.resetPassword("110", 0);
+                    //锁屏
+                    mDPM.lockNow();
                     abortBroadcast();
                 }
             }
@@ -79,6 +89,10 @@ public class LostFindService extends Service {
         Intent.setPriority(Integer.MAX_VALUE);
         registerReceiver(mSmsReceiver, Intent);
         System.out.println("防盗服务开启");
+
+        //初始化设备管理器的对象
+        mDeviceAdminSample = new ComponentName(this, MyDeviceAdminReceiver.class);
+        mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
     }
 
     @Override
