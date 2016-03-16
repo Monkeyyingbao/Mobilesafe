@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">一键锁屏</string>
+    <string name="sample_device_admin_description">不开启枪毙</string>
+    <string name="sample_device_admin">一键锁屏</string>
+</resources>
