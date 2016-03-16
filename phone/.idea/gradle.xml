@@ -11,6 +11,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/gpsdemo" />
+            <option value="$PROJECT_DIR$/popupwindowdemo" />
+            <option value="$PROJECT_DIR$/一键锁屏" />
           </set>
         </option>
       </GradleProjectSettings>

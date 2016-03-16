@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gpsdemo/gpsdemo.iml" filepath="$PROJECT_DIR$/gpsdemo/gpsdemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/phone.iml" filepath="$PROJECT_DIR$/phone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/popupwindowdemo/popupwindowdemo.iml" filepath="$PROJECT_DIR$/popupwindowdemo/popupwindowdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/一键锁屏/一键锁屏.iml" filepath="$PROJECT_DIR$/一键锁屏/一键锁屏.iml" />
     </modules>
   </component>
 </project>
