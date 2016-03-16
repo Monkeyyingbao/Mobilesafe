@@ -12,11 +12,11 @@ public class BlackDB extends SQLiteOpenHelper {
     //版本号
     private static final int VERSION = 1;
     //短信拦截
-    private static final int SMS_MODE = 1 << 0;//0 1
+    public static final int SMS_MODE = 1 << 0;//0 1
     //电话拦截
-    private static final int PHONE_MODE = 1 << 1;//1 0
+    public static final int PHONE_MODE = 1 << 1;//1 0
     //全部拦截
-    private static final int ALL_MODE = SMS_MODE | PHONE_MODE;//1 1
+    public static final int ALL_MODE = SMS_MODE | PHONE_MODE;//1 1
 
     public BlackDB(Context context) {
         super(context, "black.db", null, VERSION);

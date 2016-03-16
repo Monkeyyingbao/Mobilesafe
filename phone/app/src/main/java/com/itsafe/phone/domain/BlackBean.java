@@ -23,4 +23,12 @@ public class BlackBean {
     public void setMode(int mode) {
         this.mode = mode;
     }
+
+    @Override
+    public String toString() {
+        return "BlackBean{" +
+                "phong='" + phong + '\'' +
+                ", mode=" + mode +
+                '}';
+    }
 }

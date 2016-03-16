@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="150dp"
+              android:layout_height="wrap_content"
+              android:background="@drawable/blue_bkg"
+              android:orientation="vertical">
+    <!-- 4个TextView-->
+    <TextView
+        android:clickable="true"
+        android:id="@+id/tv_popupwindow_addblack_shoudong"
+        style="@style/lostfind_desc_style"
+        android:layout_width="wrap_content"
+        android:text="手动添加"/>
+
+    <TextView
+        android:clickable="true"
+        android:id="@+id/tv_popupwindow_addblack_tellog"
+        style="@style/lostfind_desc_style"
+        android:layout_width="wrap_content"
+        android:text="通话添加"/>
+
+    <TextView
+        android:clickable="true"
+        android:id="@+id/tv_popupwindow_addblack_smslog"
+        style="@style/lostfind_desc_style"
+        android:layout_width="wrap_content"
+        android:text="短信添加"/>
+
+    <TextView
+        android:clickable="true"
+        android:id="@+id/tv_popupwindow_addblack_friendlog"
+        style="@style/lostfind_desc_style"
+        android:layout_width="wrap_content"
+        android:text="好友添加"/>
+</LinearLayout>

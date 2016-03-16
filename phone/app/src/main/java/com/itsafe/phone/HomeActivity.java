@@ -65,6 +65,13 @@ public class HomeActivity extends Activity {
                             //设置过密码,显示输入密码对话框
                             showEnterPasswordDialog();
                         }
+                        break;
+                    case 1://黑名单管理
+                        Intent intent = new Intent(HomeActivity.this, BlackActivity.class);
+                        startActivity(intent);
+                        break;
+
+
                 }
             }
         });
