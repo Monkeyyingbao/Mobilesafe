@@ -14,6 +14,39 @@ import java.util.List;
  * Created by Hello World on 2016/3/13.
  */
 public class ContactsDao {
+    //获取短信联系人
+    public static List<ContactBean> getSmsContacts(Context context) {
+        List<ContactBean> datas = new ArrayList<>();
+        Uri uri = Uri.parse("content://sms");
+        Cursor cursor = context.getContentResolver().query(uri, new String[]{"address"}, null, null, null);
+        ContactBean bean = null;
+        while (cursor.moveToNext()) {
+            bean = new ContactBean();
+            bean.setName("sms");
+            bean.setPhone(cursor.getString(0));
+            //添加
+            datas.add(bean);
+        }
+        cursor.close();
+        return datas;
+    }
+    //获取通话联系人
+    public static List<ContactBean> getTelContacts(Context context) {
+        List<ContactBean> datas = new ArrayList<>();
+        Uri uri = Uri.parse("content://call_log/calls");
+        Cursor cursor = context.getContentResolver().query(uri, new String[]{"name", "number"}, null, null, null);
+        ContactBean bean = null;
+        while (cursor.moveToNext()) {
+            bean = new ContactBean();
+            bean.setName(cursor.getString(0));
+            bean.setPhone(cursor.getString(1));
+            //添加
+            datas.add(bean);
+        }
+        cursor.close();
+        return datas;
+    }
+    //获取好友
     public static List<ContactBean> getContacts(Context context) {
         List<ContactBean> datas = new ArrayList<>();
         //uri:content://contacts/raw_contacts

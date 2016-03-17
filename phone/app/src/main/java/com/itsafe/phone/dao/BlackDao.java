@@ -74,7 +74,10 @@ public class BlackDao {
         //先删除
         delete(phone);
         //后添加
-        add(phone,mode);
+        add(phone, mode);
+    }
+    public void update(BlackBean bean) {
+        update(bean.getPhong(),bean.getMode());
     }
     /**
      * 返回所有的黑名单数据
@@ -85,7 +88,7 @@ public class BlackDao {
         List<BlackBean> datas = new ArrayList<>();
         //获取只读的数据库
         SQLiteDatabase database = mBlackDB.getReadableDatabase();
-        Cursor cursor = database.query("blacktb", new String[]{"phone", "mode"}, null, null, null, null, null);
+        Cursor cursor = database.query("blacktb", new String[]{"phone", "mode"}, null, null, null, null, "_id desc");
         BlackBean data = null;
         while (cursor.moveToNext()) {
             //有数据

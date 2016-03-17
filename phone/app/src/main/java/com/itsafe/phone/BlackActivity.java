@@ -1,17 +1,23 @@
 package com.itsafe.phone;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -22,6 +28,7 @@ import com.itsafe.phone.dao.BlackDao;
 import com.itsafe.phone.db.BlackDB;
 import com.itsafe.phone.domain.BlackBean;
 import com.itsafe.phone.utils.ShowToast;
+import com.itsafe.phone.utils.StrUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,14 +53,79 @@ public class BlackActivity extends Activity {
     private View mContentView;
     private PopupWindow mPW;
     private Animation mPopupAnimation;
+    private AlertDialog mAlertDialog;
+    private boolean mIsFirstShow;
+    private EditText mEt_blackphone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
-        initData();
-        initEvent();
-        initPopupWindow();
+        initView();//界面
+        initData();//数据 可执行多次
+        initEvent();//事件
+        initPopupWindow();//初始化弹出窗体
+        initAddBlackDialog();//添加黑名单的对话框
+    }
+
+    private void initAddBlackDialog() {
+        //ShowToast.show("shoudongAdd",this);
+        //通过对话框添加数据
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //自定义view
+        final View mDialogView = View.inflate(getApplicationContext(), R.layout.dialog_add_black, null);
+        //获取子组件
+        mEt_blackphone = (EditText) mDialogView.findViewById(R.id.et_dialog_addblack_phone);
+        //拦截模式的勾选
+        final CheckBox cb_sms = (CheckBox) mDialogView.findViewById(R.id.cb_dialog_addblack_smsmode);
+        final CheckBox cb_phone = (CheckBox) mDialogView.findViewById(R.id.cb_dialog_addblack_phonemode);
+        //添加
+        Button bt_add = (Button) mDialogView.findViewById(R.id.bt_dialog_addblack_add);
+        //取消
+        Button bt_cancle = (Button) mDialogView.findViewById(R.id.bt_dialog_addblack_cancel);
+        bt_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //添加黑名单
+                //1.判断号码不能为空
+                String phone = mEt_blackphone.getText().toString().trim();
+                if (TextUtils.isEmpty(phone)) {
+                    ShowToast.show("号码不能为空", BlackActivity.this);
+                    return;
+                }
+                //2.拦截模式至少勾选一个
+                if (!cb_phone.isChecked() && !cb_sms.isChecked()) {
+                    ShowToast.show("拦截模式至少勾选一个",BlackActivity.this);
+                    return;
+                }
+                //3.添加黑名单数据
+                BlackBean bean = new BlackBean();
+                bean.setPhong(phone);
+                int mode = 0;
+                if (cb_phone.isChecked()) {
+                    mode |= BlackDB.PHONE_MODE;
+                }
+                if (cb_sms.isChecked()) {
+                    mode |= BlackDB.SMS_MODE;
+                }
+                bean.setMode(mode);
+                mBlackDao.update(bean);//添加到数据库中
+                mIsFirstShow = true;//是否滚动置顶标记
+                //4.显示最新添加的黑名单数据
+                initData();
+                //5.关闭对话框
+                mAlertDialog.dismiss();
+            }
+        });
+        bt_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //关闭对话框
+                mAlertDialog.dismiss();
+            }
+        });
+        //创建对话框
+        builder.setView(mDialogView);
+        mAlertDialog = builder.create();
     }
 
     private void initPopupWindow() {
@@ -108,19 +180,47 @@ public class BlackActivity extends Activity {
     }
 
     private void friendsAdd() {
-        ShowToast.show("friendsAdd",this);
+        //ShowToast.show("friendsAdd",this);
+        Intent intent = new Intent(this, FriendsActivity.class);
+        //获取请求结果
+        startActivityForResult(intent,0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //判断如果有数据就进行回显
+        if (data != null) {
+            //获取选择的好友
+            String safeNum = data.getStringExtra(StrUtils.SAFENUMBER);
+            //显示在对话框中,自动显示号码
+            showDialog(safeNum);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void smslogAdd() {
-        ShowToast.show("smslogAdd",this);
+        //ShowToast.show("smslogAdd", this);
+        Intent intent = new Intent(this, SmsActivity.class);
+        //获取请求结果
+        startActivityForResult(intent,0);
     }
 
     private void tellogAdd() {
-        ShowToast.show("tellogAdd",this);
+        //ShowToast.show("tellogAdd",this);
+        Intent intent = new Intent(this, TelActivity.class);
+        //获取请求结果
+        startActivityForResult(intent,0);
     }
 
     private void shoudongAdd() {
-        ShowToast.show("shoudongAdd",this);
+       //显示对话框
+        showDialog("");
+    }
+
+    private void showDialog(String phone) {
+        //显示黑名单号码
+        mEt_blackphone.setText(phone);
+        mAlertDialog.show();
     }
 
     private void initEvent() {
@@ -167,6 +267,10 @@ public class BlackActivity extends Activity {
                         mIv_noData.setVisibility(View.GONE);
                         //刷新界面
                         mAdapter.notifyDataSetChanged();
+                        if (mIsFirstShow) {
+                            mLv_showDatas.smoothScrollToPosition(0);
+                            mIsFirstShow = false;
+                        }
                     }
                     break;
             }

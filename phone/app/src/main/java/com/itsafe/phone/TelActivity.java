@@ -6,11 +6,11 @@ import com.itsafe.phone.domain.ContactBean;
 import java.util.List;
 
 /**
- * 显示所有好友信息的界面
+ * Created by Hello World on 2016/3/17.
  */
-public class FriendsActivity extends BaseSmsTelFriendsActivity {
+public class TelActivity extends BaseSmsTelFriendsActivity {
     @Override
     public List<ContactBean> getDatas() {
-        return ContactsDao.getContacts(getApplicationContext());
+        return ContactsDao.getTelContacts(getApplicationContext());
     }
 }
