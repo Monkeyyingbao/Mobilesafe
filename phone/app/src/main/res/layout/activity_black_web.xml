@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.itsafe.phone.BlackActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 标题 -->
+
+        <TextView
+            style="@style/title_style"
+            android:text="通讯卫士"/>
+
+        <!-- 添加黑名单数据的按钮 -->
+
+        <ImageView
+            android:id="@+id/iv_black_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/black_add_iv_selector"/>
+    </RelativeLayout>
+
+    <!-- 数据部分 -->
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+        <!-- 加载数据进度 -->
+
+        <include layout="@layout/progressbar_circle"/>
+
+        <!-- 有数据 -->
+
+        <ListView
+            android:id="@+id/lv_black_showdata"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="gone">
+        </ListView>
+
+        <!-- 没有数据 -->
+
+        <ImageView
+            android:id="@+id/iv_black_nodata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/empty"
+            android:visibility="gone"/>
+    </FrameLayout>
+    <!-- 分页按钮的添加-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- 首页-->
+        <Button
+            android:onClick="shou"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_bt_gv"
+            android:text="首"/>
+        <!-- 尾页页-->
+        <Button
+            android:onClick="wei"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_bt_gv"
+            android:text="尾"/>
+        <!-- 上一页-->
+        <Button
+            android:onClick="shang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_bt_gv"
+            android:text="上"/>
+        <!-- 下一页-->
+        <Button
+            android:onClick="xia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_bt_gv"
+            android:text="下"/>
+        <!-- 跳转-->
+        <Button
+            android:onClick="tiao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_bt_gv"
+            android:text="跳"/>
+        <!-- EditText-->
+        <EditText
+            android:id="@+id/et_web_black_tiaopage"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="10"/>
+        <TextView
+            android:inputType="number"
+            android:id="@+id/tv_web_balck_pagemsg"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="3/10"/>
+    </LinearLayout>
+</LinearLayout>

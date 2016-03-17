@@ -67,7 +67,7 @@ public class HomeActivity extends Activity {
                         }
                         break;
                     case 1://黑名单管理
-                        Intent intent = new Intent(HomeActivity.this, BlackActivity.class);
+                        Intent intent = new Intent(HomeActivity.this, WebBlackActivity.class);
                         startActivity(intent);
                         break;
 

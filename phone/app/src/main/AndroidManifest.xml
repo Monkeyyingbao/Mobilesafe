@@ -68,6 +68,7 @@
         </activity>
         <activity android:name=".SmsActivity"/>
         <activity android:name=".TelActivity"/>
+        <activity android:name=".WebBlackActivity"/>
     </application>
 
 </manifest>

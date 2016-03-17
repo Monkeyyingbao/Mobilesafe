@@ -77,7 +77,7 @@ public class BlackDao {
         add(phone, mode);
     }
     public void update(BlackBean bean) {
-        update(bean.getPhong(),bean.getMode());
+        update(bean.getPhong(), bean.getMode());
     }
     /**
      * 返回所有的黑名单数据
@@ -101,5 +101,40 @@ public class BlackDao {
             datas.add(data);
         }
         return datas;
+    }
+
+    /**
+     * 页码是从1开始
+     * @param pageNumber
+     * @return 返回当前页数据
+     */
+    public List<BlackBean> getPageData(int pageNumber,int currentPerPage) {
+        List<BlackBean> beans = new ArrayList<>();
+        //sql
+        int startIndex = (pageNumber -1) * currentPerPage;
+        SQLiteDatabase database = mBlackDB.getReadableDatabase();
+        Cursor cursor = database.rawQuery("select phone,mode from blacktb order by _id desc limit ?,?", new String[]{startIndex + "", currentPerPage + ""});
+        BlackBean data = null;
+        while (cursor.moveToNext()) {
+            //有数据
+            //1.封装数据
+            data = new BlackBean();
+            //设置黑名单号码
+            data.setPhong(cursor.getString(0));
+            //设置拦截模式
+            data.setMode(cursor.getInt(1));
+            beans.add(data);
+        }
+        return beans;
+    }
+    public int getTotalRows() {
+        int totalRows = 0;
+        SQLiteDatabase database = mBlackDB.getReadableDatabase();
+        Cursor cursor = database.rawQuery("select count(1) from blacktb", null);
+        if (cursor.moveToNext()) {
+            totalRows = cursor.getInt(0);
+        }
+
+        return totalRows;
     }
 }
