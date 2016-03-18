@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.itsafe.phone.HomeActivity">
+    tools:context=".activity.HomeActivity">
     <RelativeLayout
         android:background="@drawable/blue_bkg"
         android:layout_width="match_parent"

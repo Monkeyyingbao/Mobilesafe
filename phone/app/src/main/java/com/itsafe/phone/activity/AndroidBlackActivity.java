@@ -1,4 +1,4 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -24,6 +25,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.itsafe.phone.R;
 import com.itsafe.phone.dao.BlackDao;
 import com.itsafe.phone.db.BlackDB;
 import com.itsafe.phone.domain.BlackBean;
@@ -37,7 +39,7 @@ import java.util.List;
 /**
  * h黑名单管理的界面
  */
-public class BlackActivity extends Activity {
+public class AndroidBlackActivity extends Activity {
 
     private static final int LOADING = 1;
     private static final int FINISH = 2;
@@ -56,7 +58,7 @@ public class BlackActivity extends Activity {
     private AlertDialog mAlertDialog;
     private boolean mIsFirstShow;
     private EditText mEt_blackphone;
-
+    private static final int COUNTPERLOAD = 15;//每次分批加载的数据个数
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,12 +91,12 @@ public class BlackActivity extends Activity {
                 //1.判断号码不能为空
                 String phone = mEt_blackphone.getText().toString().trim();
                 if (TextUtils.isEmpty(phone)) {
-                    ShowToast.show("号码不能为空", BlackActivity.this);
+                    ShowToast.show("号码不能为空", AndroidBlackActivity.this);
                     return;
                 }
                 //2.拦截模式至少勾选一个
                 if (!cb_phone.isChecked() && !cb_sms.isChecked()) {
-                    ShowToast.show("拦截模式至少勾选一个",BlackActivity.this);
+                    ShowToast.show("拦截模式至少勾选一个",AndroidBlackActivity.this);
                     return;
                 }
                 //3.添加黑名单数据
@@ -224,6 +226,29 @@ public class BlackActivity extends Activity {
     }
 
     private void initEvent() {
+        //添加ListView的滑动事件
+        mLv_showDatas.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                //状态改变时触发
+                if (scrollState == SCROLL_STATE_IDLE) {
+                    //停止状态
+                    //最后一条数据显示的位置
+                    int lastVisiblePosition = mLv_showDatas.getLastVisiblePosition();
+                    if (lastVisiblePosition >= (mBlackBeans.size() - 1)) {
+                        //数据显示在最后一条了
+                        //功能
+                        initData();
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                //滑动时触发
+
+            }
+        });
         //添加新的黑名单数据
         mIv_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -359,9 +384,9 @@ public class BlackActivity extends Activity {
                 //1.发送正在加载数据的消息
                 mHandler.obtainMessage(LOADING).sendToTarget();
                 //2.加载数据
-                mBlackBeans = mBlackDao.findAll();
+                mBlackBeans.addAll(mBlackDao.loadMore(mBlackBeans.size(), COUNTPERLOAD));
                 //模拟耗时
-                SystemClock.sleep(1000);
+                SystemClock.sleep(500);
                 //3.加载完成
                 mHandler.obtainMessage(FINISH).sendToTarget();
             }

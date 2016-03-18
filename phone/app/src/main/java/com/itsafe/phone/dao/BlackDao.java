@@ -103,6 +103,7 @@ public class BlackDao {
         return datas;
     }
 
+
     /**
      * 页码是从1开始
      * @param pageNumber
@@ -126,6 +127,32 @@ public class BlackDao {
             beans.add(data);
         }
         return beans;
+    }
+
+    /**
+     *
+     * @param StartRow 起始行
+     * @param countPerLoad 分批加载多少条数据
+     * @return 新加载的数据
+     */
+    public List<BlackBean> loadMore(int StartRow,int countPerLoad){List<BlackBean> beans = new ArrayList<>();
+        //sql
+        int startIndex = StartRow;
+        SQLiteDatabase database = mBlackDB.getReadableDatabase();
+        Cursor cursor = database.rawQuery("select phone,mode from blacktb order by _id desc limit ?,?", new String[]{startIndex + "", countPerLoad + ""});
+        BlackBean data = null;
+        while (cursor.moveToNext()) {
+            //有数据
+            //1.封装数据
+            data = new BlackBean();
+            //设置黑名单号码
+            data.setPhong(cursor.getString(0));
+            //设置拦截模式
+            data.setMode(cursor.getInt(1));
+            beans.add(data);
+        }
+        return beans;
+
     }
     public int getTotalRows() {
         int totalRows = 0;

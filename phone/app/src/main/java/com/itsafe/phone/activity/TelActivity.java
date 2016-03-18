@@ -1,4 +1,4 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
 
 import com.itsafe.phone.dao.ContactsDao;
 import com.itsafe.phone.domain.ContactBean;
@@ -8,10 +8,9 @@ import java.util.List;
 /**
  * Created by Hello World on 2016/3/17.
  */
-public class SmsActivity extends BaseSmsTelFriendsActivity {
+public class TelActivity extends BaseSmsTelFriendsActivity {
     @Override
     public List<ContactBean> getDatas() {
-
-        return ContactsDao.getSmsContacts(getApplicationContext());
+        return ContactsDao.getTelContacts(getApplicationContext());
     }
 }

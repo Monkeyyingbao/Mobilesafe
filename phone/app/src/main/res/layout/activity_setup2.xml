@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.itsafe.phone.Setup2Activity">
+    tools:context=".activity.Setup2Activity">
     <!-- 标题-->
     <TextView
         style="@style/title_style"

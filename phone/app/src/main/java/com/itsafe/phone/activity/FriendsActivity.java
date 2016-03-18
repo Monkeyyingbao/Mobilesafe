@@ -1,4 +1,4 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
 
 import com.itsafe.phone.dao.ContactsDao;
 import com.itsafe.phone.domain.ContactBean;

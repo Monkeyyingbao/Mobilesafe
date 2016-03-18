@@ -1,4 +1,4 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.itsafe.phone.R;
 
 /**
  * Created by Hello World on 2016/3/10.

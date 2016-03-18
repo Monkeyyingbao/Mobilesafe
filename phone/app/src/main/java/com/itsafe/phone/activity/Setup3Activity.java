@@ -1,10 +1,11 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.itsafe.phone.R;
 import com.itsafe.phone.utils.SPUtils;
 import com.itsafe.phone.utils.ShowToast;
 import com.itsafe.phone.utils.StrUtils;

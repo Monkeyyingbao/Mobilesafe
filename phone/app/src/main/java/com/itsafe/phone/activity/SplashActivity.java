@@ -1,4 +1,4 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.itsafe.phone.R;
 import com.itsafe.phone.utils.SPUtils;
 import com.itsafe.phone.utils.StrUtils;
 import com.lidroid.xutils.HttpUtils;

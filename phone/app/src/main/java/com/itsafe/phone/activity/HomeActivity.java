@@ -1,4 +1,4 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.itsafe.phone.R;
 import com.itsafe.phone.utils.Md5Utils;
 import com.itsafe.phone.utils.SPUtils;
 import com.itsafe.phone.utils.StrUtils;
@@ -67,7 +68,7 @@ public class HomeActivity extends Activity {
                         }
                         break;
                     case 1://黑名单管理
-                        Intent intent = new Intent(HomeActivity.this, WebBlackActivity.class);
+                        Intent intent = new Intent(HomeActivity.this, AndroidBlackActivity.class);
                         startActivity(intent);
                         break;
 

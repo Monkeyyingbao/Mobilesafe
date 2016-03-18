@@ -1,4 +1,4 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.itsafe.phone.R;
 import com.itsafe.phone.domain.ContactBean;
 import com.itsafe.phone.utils.StrUtils;
 

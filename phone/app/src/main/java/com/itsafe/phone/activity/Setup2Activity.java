@@ -1,4 +1,4 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
 
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.itsafe.phone.R;
 import com.itsafe.phone.utils.SPUtils;
 import com.itsafe.phone.utils.StrUtils;
 

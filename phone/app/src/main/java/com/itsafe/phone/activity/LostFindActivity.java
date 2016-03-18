@@ -1,4 +1,4 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.itsafe.phone.R;
 import com.itsafe.phone.utils.SPUtils;
 import com.itsafe.phone.utils.StrUtils;
 

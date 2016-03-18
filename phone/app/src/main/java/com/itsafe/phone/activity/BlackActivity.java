@@ -1,8 +1,7 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,6 +24,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.itsafe.phone.R;
 import com.itsafe.phone.dao.BlackDao;
 import com.itsafe.phone.db.BlackDB;
 import com.itsafe.phone.domain.BlackBean;
@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * h黑名单管理的界面
  */
-public class WebBlackActivity extends Activity {
+public class BlackActivity extends Activity {
 
     private static final int LOADING = 1;
     private static final int FINISH = 2;
@@ -57,12 +57,6 @@ public class WebBlackActivity extends Activity {
     private AlertDialog mAlertDialog;
     private boolean mIsFirstShow;
     private EditText mEt_blackphone;
-
-    private static final int COUNTPERPAGE = 10;//规定每页多少条数据
-    private int totalPages = 0;//总页数
-    private int currentPage = 1;//当前页
-    private EditText mEt_jumppage;
-    private TextView mTv_pagemess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,12 +90,12 @@ public class WebBlackActivity extends Activity {
                 //1.判断号码不能为空
                 String phone = mEt_blackphone.getText().toString().trim();
                 if (TextUtils.isEmpty(phone)) {
-                    ShowToast.show("号码不能为空", WebBlackActivity.this);
+                    ShowToast.show("号码不能为空", BlackActivity.this);
                     return;
                 }
                 //2.拦截模式至少勾选一个
                 if (!cb_phone.isChecked() && !cb_sms.isChecked()) {
-                    ShowToast.show("拦截模式至少勾选一个", WebBlackActivity.this);
+                    ShowToast.show("拦截模式至少勾选一个",BlackActivity.this);
                     return;
                 }
                 //3.添加黑名单数据
@@ -118,7 +112,6 @@ public class WebBlackActivity extends Activity {
                 mBlackDao.update(bean);//添加到数据库中
                 mIsFirstShow = true;//是否滚动置顶标记
                 //4.显示最新添加的黑名单数据
-                currentPage = 1;
                 initData();
                 //5.关闭对话框
                 mAlertDialog.dismiss();
@@ -191,7 +184,7 @@ public class WebBlackActivity extends Activity {
         //ShowToast.show("friendsAdd",this);
         Intent intent = new Intent(this, FriendsActivity.class);
         //获取请求结果
-        startActivityForResult(intent, 0);
+        startActivityForResult(intent,0);
     }
 
     @Override
@@ -210,18 +203,18 @@ public class WebBlackActivity extends Activity {
         //ShowToast.show("smslogAdd", this);
         Intent intent = new Intent(this, SmsActivity.class);
         //获取请求结果
-        startActivityForResult(intent, 0);
+        startActivityForResult(intent,0);
     }
 
     private void tellogAdd() {
         //ShowToast.show("tellogAdd",this);
         Intent intent = new Intent(this, TelActivity.class);
         //获取请求结果
-        startActivityForResult(intent, 0);
+        startActivityForResult(intent,0);
     }
 
     private void shoudongAdd() {
-        //显示对话框
+       //显示对话框
         showDialog("");
     }
 
@@ -279,9 +272,6 @@ public class WebBlackActivity extends Activity {
                             mLv_showDatas.smoothScrollToPosition(0);
                             mIsFirstShow = false;
                         }
-                        //添加页面信息
-                        mTv_pagemess.setText(currentPage+"/"+totalPages);
-                        mEt_jumppage.setText(currentPage+"");
                     }
                     break;
             }
@@ -342,25 +332,13 @@ public class WebBlackActivity extends Activity {
             viewHolder.iv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(WebBlackActivity.this);
-                    builder.setTitle("注意");
-                    builder.setMessage("是否真的删除数据");
-                    builder.setPositiveButton("真删", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mBlackDao.delete(bean.getPhong());
-                            initData();
-                            /*//删除数据
-                            //本地删除
-                            mBlackBeans.remove(position);
-                            //数据库删除
-                            mBlackDao.delete(bean.getPhong());
-                            //更新界面
-                            mAdapter.notifyDataSetChanged();*/
-                        }
-                    });
-                    builder.setNegativeButton("不删", null);
-                    builder.show();
+                    //删除数据
+                    //本地删除
+                    mBlackBeans.remove(position);
+                    //数据库删除
+                    mBlackDao.delete(bean.getPhong());
+                    //更新界面
+                    mAdapter.notifyDataSetChanged();
                 }
             });
             return convertView;
@@ -381,11 +359,8 @@ public class WebBlackActivity extends Activity {
                 //获取数据
                 //1.发送正在加载数据的消息
                 mHandler.obtainMessage(LOADING).sendToTarget();
-                //2.获取当前页的数据
-                //获取总页数
-                totalPages = (int) Math.ceil(mBlackDao.getTotalRows() * 1.0 / COUNTPERPAGE);
-                //获取当前页的数据
-                mBlackBeans = mBlackDao.getPageData(currentPage, COUNTPERPAGE);
+                //2.加载数据
+                mBlackBeans = mBlackDao.findAll();
                 //模拟耗时
                 SystemClock.sleep(1000);
                 //3.加载完成
@@ -398,7 +373,7 @@ public class WebBlackActivity extends Activity {
      * 黑名单界面
      */
     private void initView() {
-        setContentView(R.layout.activity_black_web);
+        setContentView(R.layout.activity_black);
         //获取子组件view
         //添加黑名单
         mIv_add = (ImageView) findViewById(R.id.iv_black_add);
@@ -412,53 +387,5 @@ public class WebBlackActivity extends Activity {
 
         mBlackDao = new BlackDao(this);
 
-        //跳转页面
-        mEt_jumppage = (EditText) findViewById(R.id.et_web_black_tiaopage);
-        mTv_pagemess = (TextView) findViewById(R.id.tv_web_balck_pagemsg);
-
-
-    }
-
-    //首页
-    public void shou(View view) {
-        currentPage = 1;
-        initData();
-    }
-
-    //尾页
-    public void wei(View view) {
-        currentPage = totalPages;
-        initData();
-    }
-
-    //上一页
-    public void shang(View view) {
-        if (currentPage == 1) {
-            ShowToast.show("已经是第一页了",this);
-            return;
-        }
-        currentPage--;
-        initData();
-    }
-
-    //下一页
-    public void xia(View view) {
-        if (currentPage == totalPages) {
-            ShowToast.show("已经是最后一夜了",this);
-        }
-        currentPage++;
-        initData();
-    }
-
-    //跳转
-    public void tiao(View view) {
-        String pageStr = mEt_jumppage.getText().toString().trim();
-        int page = Integer.parseInt(pageStr);
-        if (page < 1 || page > totalPages) {
-            ShowToast.show("请按套路出牌",this);
-            return;
-        }
-        currentPage = page;
-        initData();
     }
 }

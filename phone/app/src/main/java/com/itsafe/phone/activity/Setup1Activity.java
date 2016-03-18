@@ -1,4 +1,6 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
+
+import com.itsafe.phone.R;
 
 public class Setup1Activity extends BaseSetupActivity {
 

@@ -1,13 +1,13 @@
-package com.itsafe.phone;
+package com.itsafe.phone.activity;
 
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.itsafe.phone.R;
 import com.itsafe.phone.receiver.MyDeviceAdminReceiver;
 import com.itsafe.phone.service.LostFindService;
 import com.itsafe.phone.utils.SPUtils;
@@ -29,7 +29,7 @@ public class Setup4Activity extends BaseSetupActivity {
         mTv_showState = (TextView) findViewById(R.id.tv_setup4_showstate);
 
         mDeviceAdminSample = new ComponentName(this, MyDeviceAdminReceiver.class);
-        mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        mDPM = (DevicePolicyManager) getSystemService(DEVICE_POLICY_SERVICE);
 
     }
 
