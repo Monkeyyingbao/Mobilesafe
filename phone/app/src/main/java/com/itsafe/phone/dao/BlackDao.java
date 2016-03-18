@@ -164,4 +164,20 @@ public class BlackDao {
 
         return totalRows;
     }
+
+    /**
+     *
+     * @param phone 号码
+     * @return 0不拦截 SMS_MODE短信拦截 PHONE_MODE电话拦截 ALL_MODE全部拦截
+     */
+    public int getMode(String phone) {
+        int mode = 0;
+        //获取只读的数据库
+        SQLiteDatabase database = mBlackDB.getReadableDatabase();
+        Cursor cursor = database.query("blacktb", new String[]{"mode"}, "phone = ?", new String[]{phone}, null, null, null);
+        if (cursor.moveToNext()) {
+            mode = cursor.getInt(0);//获取模式
+        }
+        return mode;
+    }
 }

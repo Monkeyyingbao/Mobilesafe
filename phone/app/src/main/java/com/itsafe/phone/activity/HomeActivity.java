@@ -51,6 +51,16 @@ public class HomeActivity extends Activity {
     }
 
     private void initEvent() {
+
+        //添加设置中心的按钮事件
+        mIv_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到设置中心的界面
+                Intent intent = new Intent(HomeActivity.this, SettingCenterActivity.class);
+                startActivity(intent);
+            }
+        });
         //设置gridview条目的点击监听事件
         mGv_tools.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -70,6 +70,12 @@
         <activity android:name=".activity.TelActivity"/>
         <activity android:name=".activity.WebBlackActivity"/>
         <activity android:name=".activity.AndroidBlackActivity"/>
+        <activity android:name=".activity.SettingCenterActivity">
+        </activity>
+
+        <service
+            android:name=".service.BlackService">
+        </service>
     </application>
 
 </manifest>

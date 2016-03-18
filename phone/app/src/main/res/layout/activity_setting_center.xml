@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.itsafe.phone.activity.SettingCenterActivity">
+
+    <!--标题头 -->
+    <TextView style="@style/title_style"
+        android:text="设置中心"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_settingcenter_balckintercept"
+        android:clickable="true"
+        android:background="@drawable/iv_first_selector"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+        <!-- 文本-->
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="黑名单拦截"/>
+        <!-- 开关-->
+        <ImageView
+            android:id="@+id/iv_settingcenter_blackintercept"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/off"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_settingcenter_autoupdate"
+        android:clickable="true"
+        android:background="@drawable/iv_last_selector"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+        <!-- 文本-->
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自动更新设置"/>
+        <!-- 开关-->
+        <ImageView
+            android:id="@+id/iv_settingcenter_autoupdate"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/off"/>
+    </RelativeLayout>
+</LinearLayout>

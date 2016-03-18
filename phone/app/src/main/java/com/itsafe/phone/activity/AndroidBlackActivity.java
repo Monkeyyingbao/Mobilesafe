@@ -113,6 +113,7 @@ public class AndroidBlackActivity extends Activity {
                 mBlackDao.update(bean);//添加到数据库中
                 mIsFirstShow = true;//是否滚动置顶标记
                 //4.显示最新添加的黑名单数据
+                mBlackBeans.clear();
                 initData();
                 //5.关闭对话框
                 mAlertDialog.dismiss();

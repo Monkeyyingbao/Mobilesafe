@@ -156,8 +156,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: 2016/3/10 模拟数据
-        SPUtils.putBoolean(getApplicationContext(), StrUtils.AUTO_CHECK_VERSION, false);
+
         //界面
         initView();
         //数据
