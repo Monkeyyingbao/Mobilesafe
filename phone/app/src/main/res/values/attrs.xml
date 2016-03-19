@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SettingCenterItem">
+        <!-- 添加文本描述信息-->
+        <attr name="desc" format="string"/>
+        <!-- 设置背景选择器-->
+        <attr name="bgselector">
+            <enum name="first" value="0"/>
+            <enum name="middle" value="1"/>
+            <enum name="last" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>

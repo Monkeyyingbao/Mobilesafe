@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:itheima="http://schemas.android.com/apk/res/com.itsafe.phone"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,59 +9,46 @@
     tools:context="com.itsafe.phone.activity.SettingCenterActivity">
 
     <!--标题头 -->
-    <TextView style="@style/title_style"
+    <TextView
+        style="@style/title_style"
         android:text="设置中心"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_settingcenter_balckintercept"
-        android:clickable="true"
-        android:background="@drawable/iv_first_selector"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="8dp"
+    <!-- 自动更新设置-->
+    <com.itsafe.phone.view.SettingCenterItem
+        android:id="@+id/sci_settingcenter_autoupdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp">
-        <!-- 文本-->
-        <TextView
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="黑名单拦截"/>
-        <!-- 开关-->
-        <ImageView
-            android:id="@+id/iv_settingcenter_blackintercept"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/off"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rl_settingcenter_autoupdate"
-        android:clickable="true"
-        android:background="@drawable/iv_last_selector"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="8dp"
+        itheima:bgselector="first"
+        itheima:desc="自动更新服务"/>
+
+    <!-- 黑名单拦截-->
+    <com.itsafe.phone.view.SettingCenterItem
+        android:id="@+id/sci_settingcenter_blackintercept"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp">
-        <!-- 文本-->
-        <TextView
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="自动更新设置"/>
-        <!-- 开关-->
-        <ImageView
-            android:id="@+id/iv_settingcenter_autoupdate"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/off"/>
-    </RelativeLayout>
+        itheima:bgselector="last"
+        itheima:desc="黑名单拦截服务"/>
+
+    <!-- 电话归属地-->
+    <com.itsafe.phone.view.SettingCenterItem
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        itheima:bgselector="first"
+        itheima:desc="电话归属地服务"/>
+
+    <!-- 归属地样式-->
+    <com.itsafe.phone.view.SettingCenterItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        itheima:bgselector="middle"
+        itheima:desc="归属地样式"/>
+
+    <!-- 程序锁-->
+    <com.itsafe.phone.view.SettingCenterItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        itheima:bgselector="last"
+        itheima:desc="看门狗服务"/>
+
 </LinearLayout>
