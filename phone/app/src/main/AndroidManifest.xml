@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -74,9 +75,13 @@
         <activity android:name=".activity.SettingCenterActivity">
         </activity>
 
-        <service
-            android:name=".service.BlackService">
+        <service android:name=".service.BlackService">
         </service>
+
+        <activity android:name=".activity.AToolActivity">
+        </activity>
+        <activity android:name=".activity.PhoneLocationActivity">
+        </activity>
     </application>
 
 </manifest>

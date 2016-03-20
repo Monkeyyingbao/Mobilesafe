@@ -46,7 +46,7 @@ public class SettingCenterItem extends RelativeLayout {
 
     //接口暴露给需要调用该功能的程序员
     public interface OnToggleChangedListener {
-        void onToggleChanged(boolean isOpen);
+        void onToggleChanged(View view,boolean isOpen);
     }
 
     private OnToggleChangedListener mOnToggleChangedListener;
@@ -83,7 +83,7 @@ public class SettingCenterItem extends RelativeLayout {
                 //接口
                 if (mOnToggleChangedListener != null) {
                     //设置了监听器
-                    mOnToggleChangedListener.onToggleChanged(isOpen);
+                    mOnToggleChangedListener.onToggleChanged(SettingCenterItem.this,isOpen);
                 }
             }
         });
@@ -107,6 +107,12 @@ public class SettingCenterItem extends RelativeLayout {
             case 2://last
                 mRootView.setBackgroundResource(R.drawable.iv_last_selector);
                 break;
+        }
+
+        boolean isdisabletoggle = attrs.getAttributeBooleanValue("http://schemas.android.com/apk/res/com.itsafe.phone", "isdisabletoggle", false);
+        if (isdisabletoggle) {
+            //不显示
+            mIv_toggle.setVisibility(GONE);
         }
     }
 

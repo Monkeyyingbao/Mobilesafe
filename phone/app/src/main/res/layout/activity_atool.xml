@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:itheima="http://schemas.android.com/apk/res/com.itsafe.phone"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.itsafe.phone.activity.AToolActivity">
+
+    <!-- 标题-->
+    <TextView style="@style/title_style"
+        android:text="高级工具"/>
+
+    <!-- 自动更新设置-->
+    <com.itsafe.phone.view.SettingCenterItem
+        android:id="@+id/sci_atool_mobilephone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        itheima:bgselector="first"
+        itheima:desc="电话归属地查询"
+        itheima:isdisabletoggle = "true"/>
+
+    <com.itsafe.phone.view.SettingCenterItem
+        android:id="@+id/sci_atool_servicephone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        itheima:bgselector="last"
+        itheima:desc="服务号码查询"
+        itheima:isdisabletoggle="true"/>
+</LinearLayout>

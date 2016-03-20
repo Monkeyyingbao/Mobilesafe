@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,6 +36,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -166,6 +168,39 @@ public class SplashActivity extends Activity {
     }
 
     /**
+     * 拷贝到//data/data/com.itsafe.phone
+     * @param dbFileName 数据库的文件名(asset目录)
+     */
+    private void copyDB(String dbFileName) throws IOException {
+        //判断文件是已拷贝过否
+        File filesDir = getFilesDir();///data/data/com.itsafe.phone/files
+        File file = new File(filesDir, dbFileName);
+        if (file.exists()) {
+            return;
+        }
+
+        //流的拷贝
+        //输入流
+        AssetManager assetManager = getAssets();
+        InputStream inputStream = assetManager.open(dbFileName);
+        //输出流
+        FileOutputStream fos = new FileOutputStream(file);
+        //读数据
+        byte[] buffer = new byte[1024 * 5];
+        int len = inputStream.read(buffer);
+        while (len != -1) {
+            //写数据
+            fos.write(buffer,0,len);
+            fos.flush();//刷新缓冲区的内容到目的地
+            //继续读取
+            len = inputStream.read(buffer);
+        }
+        //关闭流
+        inputStream.close();
+        fos.close();
+    }
+
+    /**
      * 初始化界面
      */
     private void initView() {
@@ -199,6 +234,8 @@ public class SplashActivity extends Activity {
             @Override
             public void onAnimationStart(Animation animation) {
                 System.out.println("动画开始");
+                //号码归属地文件的拷贝
+                copyFileThread("address.db");
                 //动画开始:初始化数据(子线程),初始化网络(子线程),版本更新
                 //如果用户勾选了应用更新提示,要执行版本检测
                 if (SPUtils.getBoolean(SplashActivity.this, StrUtils.AUTO_CHECK_VERSION, false)) {
@@ -206,6 +243,20 @@ public class SplashActivity extends Activity {
                 } else {
                     //等动画播放
                 }
+            }
+
+            //耗时线程拷贝文件
+            private void copyFileThread(final String fileName) {
+                new Thread(){
+                    @Override
+                    public void run() {
+                        try {
+                            copyDB(fileName);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
             }
 
             @Override

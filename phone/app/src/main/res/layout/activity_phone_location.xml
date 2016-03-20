@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.itsafe.phone.activity.PhoneLocationActivity">
+    <TextView style="@style/title_style"
+        android:text="号码归属地查询"/>
+    <!--号码编辑框-->
+    <EditText
+        android:id="@+id/et_phonelocation_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入号码"/>
+    <!-- 查询按钮-->
+    <Button
+        android:onClick="query"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_bt_gv"
+        android:text="查询"/>
+    <!-- 显示查询结果-->
+    <TextView
+        android:id="@+id/tv_phonelocation_showlocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="归属地:"
+        android:textSize="18sp"/>
+</LinearLayout>

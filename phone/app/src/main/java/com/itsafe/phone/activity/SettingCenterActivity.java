@@ -3,6 +3,7 @@ package com.itsafe.phone.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -53,31 +54,35 @@ public class SettingCenterActivity extends Activity {
     }
 
     private void initEvent() {
-        //自动更新添加事件
-        mSci_autoupdate.setOnToggleChangedListener(new SettingCenterItem.OnToggleChangedListener() {
+        SettingCenterItem.OnToggleChangedListener onToggleChangedListener = new SettingCenterItem.OnToggleChangedListener() {
             @Override
-            public void onToggleChanged(boolean isOpen) {
-                //自动更新设置
-                //更改并保存状态
-                SPUtils.putBoolean(getApplicationContext(), StrUtils.AUTO_CHECK_VERSION, isOpen);
-            }
-        });
-
-        mSci_blackintercept.setOnToggleChangedListener(new SettingCenterItem.OnToggleChangedListener() {
-            @Override
-            public void onToggleChanged(boolean isOpen) {
-                //黑名单拦截
-                if (isOpen) {
-                    //打开服务
-                    Intent intent = new Intent(SettingCenterActivity.this, BlackService.class);
-                    startService(intent);
-                } else {
-                    //关闭服务
-                    Intent intent = new Intent(SettingCenterActivity.this, BlackService.class);
-                    stopService(intent);
+            public void onToggleChanged(View view, boolean isOpen) {
+                //判断view类型
+                switch (view.getId()) {
+                    case R.id.sci_settingcenter_autoupdate:
+                        //自动更新设置
+                        //更改并保存状态
+                        SPUtils.putBoolean(getApplicationContext(), StrUtils.AUTO_CHECK_VERSION, isOpen);
+                        break;
+                    case R.id.sci_settingcenter_blackintercept:
+                        //黑名单拦截
+                        if (isOpen) {
+                            //打开服务
+                            Intent intent = new Intent(SettingCenterActivity.this, BlackService.class);
+                            startService(intent);
+                        } else {
+                            //关闭服务
+                            Intent intent = new Intent(SettingCenterActivity.this, BlackService.class);
+                            stopService(intent);
+                        }
+                        break;
                 }
             }
-        });
+        };
+        //自动更新添加事件
+        mSci_autoupdate.setOnToggleChangedListener(onToggleChangedListener);
+        //黑名单拦截
+        mSci_blackintercept.setOnToggleChangedListener(onToggleChangedListener);
 
        /* //黑名单拦截事件
         mRl_blackintercept.setOnClickListener(new View.OnClickListener() {

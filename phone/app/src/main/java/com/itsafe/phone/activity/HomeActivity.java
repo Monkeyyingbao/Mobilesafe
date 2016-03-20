@@ -78,9 +78,14 @@ public class HomeActivity extends Activity {
                         }
                         break;
                     case 1://黑名单管理
-                        Intent intent = new Intent(HomeActivity.this, AndroidBlackActivity.class);
-                        startActivity(intent);
+                        Intent black = new Intent(HomeActivity.this, AndroidBlackActivity.class);
+                        startActivity(black);
                         break;
+                    case 7://高级工具
+                        Intent atool = new Intent(HomeActivity.this,AToolActivity.class);
+                        startActivity(atool);
+                        break;
+
 
 
                 }
