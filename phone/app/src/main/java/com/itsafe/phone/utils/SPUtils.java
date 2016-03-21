@@ -31,4 +31,15 @@ public class SPUtils {
         SharedPreferences sp = context.getSharedPreferences(StrUtils.SP_CONFIG,0);
         return sp.getString(key, defaultval);
     }
+
+    public static void putInt(Context context, String key, int value) {
+        SharedPreferences sp = context.getSharedPreferences(StrUtils.SP_CONFIG, 0);
+        sp.edit().putInt(key, value).commit();
+    }
+
+    public static int getInt(Context context, String key, int defaultval) {
+        SharedPreferences sp = context.getSharedPreferences(StrUtils.SP_CONFIG, 0);
+        return sp.getInt(key, defaultval);
+    }
+
 }

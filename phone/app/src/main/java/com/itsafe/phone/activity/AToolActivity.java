@@ -33,7 +33,10 @@ public class AToolActivity extends Activity {
                         startActivity(phone);
                         break;
                     case R.id.sci_atool_servicephone:
-
+                        //服务号码
+                        Intent serviceNumber = new Intent(AToolActivity.this, ServiceNumberActivity.class);
+                        startActivity(serviceNumber);
+                        break;
                 }
             }
         };

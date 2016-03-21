@@ -16,4 +16,6 @@ public interface StrUtils {
     String SIM_SERIAL_NUM = "SimSerialNumber";//sim卡序列号
     String SAFENUMBER = "safenumber";//安全号码
     String BOOTCOMPLETE = "bootcomplete";
+    String TOASTX = "toasex";
+    String TOASTY = "toasty";
 }

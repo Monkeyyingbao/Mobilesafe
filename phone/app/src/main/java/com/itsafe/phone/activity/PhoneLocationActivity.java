@@ -3,7 +3,9 @@ package com.itsafe.phone.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,6 +25,29 @@ public class PhoneLocationActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
+        initEvent();
+    }
+
+    private void initEvent() {
+        //监听文本的变化事件
+        mEt_phone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //文本变化前
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //文本变化
+                //动态查询
+                query(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //文本变化后
+            }
+        });
     }
 
     public void query(View view) {
@@ -39,9 +64,13 @@ public class PhoneLocationActivity extends Activity {
             return;
         }
         //判断是移动号还是固定好
-        String location = AddressDao.getLocation(phone);
-        //显示
-        mTv_showlocation.setText("归属地:\n"+location);
+        String location = null;
+        try {
+            location = AddressDao.getLocation(phone);
+            //显示
+            mTv_showlocation.setText("归属地:\n" + location);
+        } catch (Exception e) {
+        }
     }
 
     private void initView() {

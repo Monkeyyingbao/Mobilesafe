@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.itsafe.phone.R;
 import com.itsafe.phone.service.BlackService;
+import com.itsafe.phone.service.IncomingShowLocationService;
 import com.itsafe.phone.utils.SPUtils;
 import com.itsafe.phone.utils.ServiceUtils;
 import com.itsafe.phone.utils.StrUtils;
@@ -25,6 +26,7 @@ public class SettingCenterActivity extends Activity {
     private ImageView mIv_blackintercept;
     private SettingCenterItem mSci_autoupdate;
     private SettingCenterItem mSci_blackintercept;
+    private SettingCenterItem mSci_showLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,8 @@ public class SettingCenterActivity extends Activity {
             boolean autoUpdate = SPUtils.getBoolean(getApplicationContext(), StrUtils.AUTO_CHECK_VERSION, false);
             mSci_autoupdate.setToggleOn(autoUpdate);
         }
+        //设置来电归属地的初始化状态
+        mSci_showLocation.setToggleOn(ServiceUtils.isServiceRunning(getApplicationContext(), "com.itsafe.phone.service.IncomingShowLocationService"));
     }
 
     private void initEvent() {
@@ -76,6 +80,17 @@ public class SettingCenterActivity extends Activity {
                             stopService(intent);
                         }
                         break;
+                    case R.id.sci_settingcenter_showlocation:
+                        if (isOpen) {
+                            //打开服务
+                            Intent intent = new Intent(SettingCenterActivity.this, IncomingShowLocationService.class);
+                            startService(intent);
+                        } else {
+                            //关闭服务
+                            Intent intent = new Intent(SettingCenterActivity.this, IncomingShowLocationService.class);
+                            stopService(intent);
+                        }
+                        break;
                 }
             }
         };
@@ -83,6 +98,8 @@ public class SettingCenterActivity extends Activity {
         mSci_autoupdate.setOnToggleChangedListener(onToggleChangedListener);
         //黑名单拦截
         mSci_blackintercept.setOnToggleChangedListener(onToggleChangedListener);
+
+        mSci_showLocation.setOnToggleChangedListener(onToggleChangedListener);
 
        /* //黑名单拦截事件
         mRl_blackintercept.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +139,7 @@ public class SettingCenterActivity extends Activity {
         setContentView(R.layout.activity_setting_center);
         mSci_autoupdate = (SettingCenterItem) findViewById(R.id.sci_settingcenter_autoupdate);
         mSci_blackintercept = (SettingCenterItem) findViewById(R.id.sci_settingcenter_blackintercept);
+        mSci_showLocation = (SettingCenterItem) findViewById(R.id.sci_settingcenter_showlocation);
 
     }
 }

@@ -31,11 +31,12 @@
 
     <!-- 电话归属地-->
     <com.itsafe.phone.view.SettingCenterItem
+        android:id="@+id/sci_settingcenter_showlocation"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         itheima:bgselector="first"
-        itheima:desc="电话归属地服务"/>
+        itheima:desc="来电显示归属地服务"/>
 
     <!-- 归属地样式-->
     <com.itsafe.phone.view.SettingCenterItem
