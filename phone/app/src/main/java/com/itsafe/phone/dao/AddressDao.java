@@ -38,6 +38,7 @@ public class AddressDao {
             bean.setNumber(cursor.getString(1));//外键值
             serviceNameAndTypes.add(bean);
         }
+        cursor.close();
         return serviceNameAndTypes;
     }
     /**
@@ -57,6 +58,7 @@ public class AddressDao {
             bean.setOut_id(cursor.getInt(1));//外键值
             serviceNameAndTypes.add(bean);
         }
+        cursor.close();
         return serviceNameAndTypes;
     }
     /**
@@ -99,6 +101,7 @@ public class AddressDao {
             //获取归属地信息
             location = cursor.getString(0);
         }
+        cursor.close();
         return location;
     }
 
@@ -116,6 +119,7 @@ public class AddressDao {
             //获取归属地信息
             location = cursor.getString(0);
         }
+        cursor.close();
         return location;
     }
 }

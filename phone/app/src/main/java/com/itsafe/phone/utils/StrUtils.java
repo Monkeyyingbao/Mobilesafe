@@ -18,4 +18,6 @@ public interface StrUtils {
     String BOOTCOMPLETE = "bootcomplete";
     String TOASTX = "toasex";
     String TOASTY = "toasty";
+    String LOCATIONSTYLEINDEX = "locationstyleindex";
+    byte MUSIC = 99;
 }

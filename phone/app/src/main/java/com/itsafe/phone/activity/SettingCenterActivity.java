@@ -14,6 +14,7 @@ import com.itsafe.phone.utils.SPUtils;
 import com.itsafe.phone.utils.ServiceUtils;
 import com.itsafe.phone.utils.StrUtils;
 import com.itsafe.phone.view.SettingCenterItem;
+import com.itsafe.phone.view.ShowLocationStyleDialog;
 
 /**
  *
@@ -27,6 +28,7 @@ public class SettingCenterActivity extends Activity {
     private SettingCenterItem mSci_autoupdate;
     private SettingCenterItem mSci_blackintercept;
     private SettingCenterItem mSci_showLocation;
+    private SettingCenterItem mSci_locationStyle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class SettingCenterActivity extends Activity {
     }
 
     private void initData() {
+
+        //初始化样式名
+        mSci_locationStyle.setText("归属地样式("+ShowLocationStyleDialog.styleNames[SPUtils.getInt(getApplicationContext(),StrUtils.LOCATIONSTYLEINDEX,0)]+")");
         //初始化黑名单拦截状态
         {
            /* if (ServiceUtils.isServiceRunning(getApplicationContext(), "com.itsafe.phone.service.BlackService")) {
@@ -91,6 +96,12 @@ public class SettingCenterActivity extends Activity {
                             stopService(intent);
                         }
                         break;
+                    case R.id.sci_settingcenter_locationstyle:
+                        //归属地的样式
+                        //弹出对话框
+                        ShowLocationStyleDialog dialog = new ShowLocationStyleDialog(SettingCenterActivity.this,mSci_locationStyle);
+                        dialog.show();
+                        break;
                 }
             }
         };
@@ -100,6 +111,8 @@ public class SettingCenterActivity extends Activity {
         mSci_blackintercept.setOnToggleChangedListener(onToggleChangedListener);
 
         mSci_showLocation.setOnToggleChangedListener(onToggleChangedListener);
+
+        mSci_locationStyle.setOnToggleChangedListener(onToggleChangedListener);
 
        /* //黑名单拦截事件
         mRl_blackintercept.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +153,6 @@ public class SettingCenterActivity extends Activity {
         mSci_autoupdate = (SettingCenterItem) findViewById(R.id.sci_settingcenter_autoupdate);
         mSci_blackintercept = (SettingCenterItem) findViewById(R.id.sci_settingcenter_blackintercept);
         mSci_showLocation = (SettingCenterItem) findViewById(R.id.sci_settingcenter_showlocation);
-
+        mSci_locationStyle = (SettingCenterItem) findViewById(R.id.sci_settingcenter_locationstyle);
     }
 }

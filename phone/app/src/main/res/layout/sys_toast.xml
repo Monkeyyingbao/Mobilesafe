@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10.0dip"
-        android:src="@drawable/heima" />
+        android:src="@mipmap/heima" />
 
     <TextView
         android:id="@+id/tv_toast_text"

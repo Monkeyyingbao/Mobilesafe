@@ -7,7 +7,7 @@
                 >
                 <ImageView
                     android:id="@+id/gv_icon"
-                    android:src="@drawable/sjfd"
+                    android:src="@mipmap/sjfd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"/>

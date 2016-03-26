@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="150dp"
               android:layout_height="wrap_content"
-              android:background="@drawable/blue_bkg"
+              android:background="@mipmap/blue_bkg"
               android:orientation="vertical">
     <!-- 4个TextView-->
     <TextView

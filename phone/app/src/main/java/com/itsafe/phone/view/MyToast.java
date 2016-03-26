@@ -47,8 +47,18 @@ public class MyToast implements View.OnTouchListener {
         //3.view
     }
 
+    /**
+     *
+     * @param styleIndex 归属地样式的标记
+     */
+    private void setBackGroundStyle(int styleIndex) {
+        mView.setBackgroundResource(ShowLocationStyleDialog.bgColors[styleIndex]);
+    }
+
     public void show(String location) {
         mView = View.inflate(mContext, R.layout.sys_toast, null);
+        //设置背景的样式
+        setBackGroundStyle(SPUtils.getInt(mContext,StrUtils.LOCATIONSTYLEINDEX,0));
         mTv_mess = (TextView) mView.findViewById(R.id.tv_toast_text);
         mTv_mess.setText(location);
         mView.setOnTouchListener(this);

@@ -20,10 +20,10 @@ public class Setup2Activity extends BaseSetupActivity {
         String simSerNum = SPUtils.getString(Setup2Activity.this, StrUtils.SIM_SERIAL_NUM, null);
         if (TextUtils.isEmpty(simSerNum)) {
             //未绑定
-            mIv_setup2_simbind_icon.setImageResource(R.drawable.unlock);
+            mIv_setup2_simbind_icon.setImageResource(R.mipmap.unlock);
         } else {
             //已绑定
-            mIv_setup2_simbind_icon.setImageResource(R.drawable.lock);
+            mIv_setup2_simbind_icon.setImageResource(R.mipmap.lock);
 
         }
         super.initData();
@@ -68,12 +68,12 @@ public class Setup2Activity extends BaseSetupActivity {
             //保存
             SPUtils.putString(Setup2Activity.this, StrUtils.SIM_SERIAL_NUM, simSerialNumber);
             //修改图标
-            mIv_setup2_simbind_icon.setImageResource(R.drawable.lock);
+            mIv_setup2_simbind_icon.setImageResource(R.mipmap.lock);
         } else {
             //解绑
             SPUtils.putString(Setup2Activity.this, StrUtils.SIM_SERIAL_NUM, "");
             //修改图标
-            mIv_setup2_simbind_icon.setImageResource(R.drawable.unlock);
+            mIv_setup2_simbind_icon.setImageResource(R.mipmap.unlock);
         }
     }
 }

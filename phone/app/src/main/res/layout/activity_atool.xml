@@ -12,7 +12,7 @@
     <TextView style="@style/title_style"
         android:text="高级工具"/>
 
-    <!-- 自动更新设置-->
+    <!-- 电话归属地查询-->
     <com.itsafe.phone.view.SettingCenterItem
         android:id="@+id/sci_atool_mobilephone"
         android:layout_width="match_parent"
@@ -28,4 +28,31 @@
         itheima:bgselector="last"
         itheima:desc="服务号码查询"
         itheima:isdisabletoggle="true"/>
+
+    <!-- 短信的备份-->
+    <com.itsafe.phone.view.SettingCenterItem
+        android:id="@+id/sci_atool_smsbackup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        itheima:bgselector="first"
+        itheima:desc="短信的备份"
+        itheima:isdisabletoggle="true"/>
+
+    <!-- 短信的还原-->
+    <com.itsafe.phone.view.SettingCenterItem
+        android:id="@+id/sci_atool_smsrecovery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        itheima:bgselector="last"
+        itheima:desc="短信的还原"
+        itheima:isdisabletoggle="true"/>
+
+    <!-- 备份进度显示 -->
+    <com.daimajia.numberprogressbar.NumberProgressBar
+        android:id="@+id/number_progress_bar"
+        style="@style/NumberProgressBar_Default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
 </LinearLayout>

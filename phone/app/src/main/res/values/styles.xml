@@ -15,17 +15,38 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#ffffff</item>
-        <item name="android:background">@drawable/blue_bkg</item>
+        <item name="android:background">@mipmap/blue_bkg</item>
     </style>
     <!-- 手机防盗窗口标签样式-->
 
     <style name="lostfind_desc_style">
-        <item name="android:drawableLeft">@drawable/dialog_title_default_icon</item>
+        <item name="android:drawableLeft">@mipmap/dialog_title_default_icon</item>
         <item name="android:drawablePadding">5dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <!-- 自定义对话框的样式 -->
+    <style name="LocationStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/darker_gray</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <!-- 阴影的设置 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 去掉标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 设置在外面点击关闭 -->
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <!-- 弹出船体的动画-->
+    <style name="PPDialog" >
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
     </style>
 </resources>

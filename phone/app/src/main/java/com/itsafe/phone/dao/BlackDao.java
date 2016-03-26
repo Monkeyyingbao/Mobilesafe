@@ -161,6 +161,7 @@ public class BlackDao {
         if (cursor.moveToNext()) {
             totalRows = cursor.getInt(0);
         }
+        cursor.close();
 
         return totalRows;
     }
@@ -178,6 +179,7 @@ public class BlackDao {
         if (cursor.moveToNext()) {
             mode = cursor.getInt(0);//获取模式
         }
+        cursor.close();
         return mode;
     }
 }

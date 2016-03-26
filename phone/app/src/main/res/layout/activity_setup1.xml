@@ -67,7 +67,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/step_1"
+            android:src="@mipmap/step_1"
             android:layout_centerInParent="true"
             android:id="@+id/imageView"/>
         <!-- 按钮-->
@@ -77,7 +77,7 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="下一个"
-            android:src="@drawable/next"
+            android:src="@mipmap/next"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             />

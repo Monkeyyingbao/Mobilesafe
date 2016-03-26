@@ -7,13 +7,13 @@
     android:orientation="vertical"
     tools:context=".activity.HomeActivity">
     <RelativeLayout
-        android:background="@drawable/blue_bkg"
+        android:background="@mipmap/blue_bkg"
         android:layout_width="match_parent"
         android:layout_height="100dp">
         <ImageView
             android:layout_centerVertical="true"
             android:id="@+id/iv_home_logo"
-            android:src="@drawable/heima"
+            android:src="@mipmap/heima"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginRight="10dp"
@@ -47,7 +47,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/setting"
+            android:src="@mipmap/setting"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
     <GridView

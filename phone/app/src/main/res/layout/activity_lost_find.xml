@@ -57,7 +57,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dip"
-            android:src="@drawable/lock" />
+            android:src="@mipmap/lock" />
     </RelativeLayout>
     <!-- 重新进入设置向导界面 -->
 

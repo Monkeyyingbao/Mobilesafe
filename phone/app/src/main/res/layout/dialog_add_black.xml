@@ -11,7 +11,7 @@
         android:textSize="26sp"
         android:gravity="center"
         android:text="添加黑名单"
-        android:background="@drawable/blue_bkg"
+        android:background="@mipmap/blue_bkg"
         />
     <EditText
         android:id="@+id/et_dialog_addblack_phone"

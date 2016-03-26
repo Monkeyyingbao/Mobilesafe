@@ -44,6 +44,11 @@ public class SettingCenterItem extends RelativeLayout {
         initEvent();
     }
 
+    //设置view里的tv的值
+    public void setText(String desc) {
+        mTv_desc.setText(desc);
+    }
+
     //接口暴露给需要调用该功能的程序员
     public interface OnToggleChangedListener {
         void onToggleChanged(View view,boolean isOpen);
@@ -60,9 +65,9 @@ public class SettingCenterItem extends RelativeLayout {
         this.isOpen = isOpen;
         if (isOpen) {
             //设置mIv_toggle为打开的图片
-            mIv_toggle.setImageResource(R.drawable.on);
+            mIv_toggle.setImageResource(R.mipmap.on);
         } else {
-            mIv_toggle.setImageResource(R.drawable.off);
+            mIv_toggle.setImageResource(R.mipmap.off);
         }
     }
 
@@ -75,9 +80,9 @@ public class SettingCenterItem extends RelativeLayout {
                 isOpen = !isOpen;
                 if (isOpen) {
                     //设置mIv_toggle为打开的图片
-                    mIv_toggle.setImageResource(R.drawable.on);
+                    mIv_toggle.setImageResource(R.mipmap.on);
                 } else {
-                    mIv_toggle.setImageResource(R.drawable.off);
+                    mIv_toggle.setImageResource(R.mipmap.off);
                 }
 
                 //接口

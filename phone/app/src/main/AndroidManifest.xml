@@ -16,6 +16,9 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_SMS"/>
 
     <application
         android:allowBackup="true"
@@ -87,9 +90,11 @@
         <activity android:name=".activity.ServiceNumberActivity">
         </activity>
 
-        <service
-            android:name=".service.IncomingShowLocationService">
+        <service android:name=".service.IncomingShowLocationService">
         </service>
+
+        <activity android:name=".activity.AppManagerActivity">
+        </activity>
     </application>
 
 </manifest>

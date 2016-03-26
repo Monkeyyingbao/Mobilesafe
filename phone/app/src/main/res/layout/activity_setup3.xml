@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/step_3"/>
+            android:src="@mipmap/step_3"/>
         <!-- 上一个按钮-->
         <ImageView
             android:onClick="prevPage"
@@ -79,7 +79,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:background="@drawable/dg_btn_confirm_select"
-            android:src="@drawable/pre"
+            android:src="@mipmap/pre"
             />
         <!-- 下一个按钮-->
         <ImageView
@@ -89,7 +89,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/dg_btn_confirm_select"
-            android:src="@drawable/next"
+            android:src="@mipmap/next"
             />
     </RelativeLayout>
 

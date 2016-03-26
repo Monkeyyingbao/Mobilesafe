@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.itsafe.phone.activity.AppManagerActivity">
+
+
+    <!-- 标题-->
+    <TextView
+        style="@style/title_style"
+        android:text="软件管家"/>
+
+    <!--内存信息 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--手机内存 -->
+        <com.itsafe.phone.view.TextProgressView
+            android:id="@+id/tpv_appmanager_rom_mess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <!--sd内存 -->
+        <com.itsafe.phone.view.TextProgressView
+            android:id="@+id/tpv_appmanager_sd_mess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- ListView-->
+        <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+            android:id="@+id/lv_appmanager_viewdatas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+        </se.emilsjolander.stickylistheaders.StickyListHeadersListView>
+
+        <!-- 进度条-->
+        <include layout="@layout/progressbar_circle"/>
+    </FrameLayout>
+</LinearLayout>

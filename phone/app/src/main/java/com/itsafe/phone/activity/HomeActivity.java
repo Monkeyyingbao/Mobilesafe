@@ -32,8 +32,12 @@ public class HomeActivity extends Activity {
 
     public static final String[] names = {"手机防盗", "通讯卫士", "软件管家", "进程管理", "流量统计", "病毒查杀", "缓存清理", "高级工具"};
     public static final String[] desc = {"手机丢失好找", "防骚扰防监听", "方便管理软件", "保持手机通畅", "注意流量超标", "手机安全保障", "手机快步如飞", "特性处理更好"};
-    public static final int[] icons = {R.drawable.sjfd, R.drawable.srlj, R.drawable.rjgj, R.drawable.jcgl, R.drawable.lltj,
-            R.drawable.sjsd, R.drawable.hcql, R.drawable.szzx};
+    public static final int[] icons = {R.mipmap.sjfd, R.mipmap.srlj,
+            R.mipmap.rjgj,
+            R.mipmap.jcgl,
+            R.mipmap.lltj,
+            R.mipmap.sjsd,
+            R.mipmap.hcql, R.mipmap.szzx};
     private AlertDialog mBuilder;
 
     @Override
@@ -80,6 +84,10 @@ public class HomeActivity extends Activity {
                     case 1://黑名单管理
                         Intent black = new Intent(HomeActivity.this, AndroidBlackActivity.class);
                         startActivity(black);
+                        break;
+                    case 2://软件管家
+                        Intent appManager = new Intent(HomeActivity.this,AppManagerActivity.class);
+                        startActivity(appManager);
                         break;
                     case 7://高级工具
                         Intent atool = new Intent(HomeActivity.this,AToolActivity.class);

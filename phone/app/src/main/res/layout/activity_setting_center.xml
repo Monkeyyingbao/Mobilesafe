@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.itsafe.phone.activity.SettingCenterActivity">
 
@@ -40,16 +41,11 @@
 
     <!-- 归属地样式-->
     <com.itsafe.phone.view.SettingCenterItem
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        itheima:bgselector="middle"
-        itheima:desc="归属地样式"/>
-
-    <!-- 程序锁-->
-    <com.itsafe.phone.view.SettingCenterItem
+        android:id="@+id/sci_settingcenter_locationstyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         itheima:bgselector="last"
-        itheima:desc="看门狗服务"/>
+        itheima:isdisabletoggle="true"
+        itheima:desc="归属地样式(默认)"/>
 
 </LinearLayout>
