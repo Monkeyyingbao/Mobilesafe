@@ -7,6 +7,17 @@ import android.graphics.drawable.Drawable;
  * Created by Hello World on 2016/3/24.
  */
 public class AppInfoBean {
+
+    private boolean isChecked;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
+
     private Drawable icon;//图标
     private String appName;//app名字
     private boolean isSystem;//是否是系统软件
@@ -14,6 +25,15 @@ public class AppInfoBean {
     private String packName;//app包名
     private long size;//占用的大小
     private String sourceDir;//安装路径
+    private long memSize;//占用的内存大小
+
+    public long getMemSize() {
+        return memSize;
+    }
+
+    public void setMemSize(long memSize) {
+        this.memSize = memSize;
+    }
 
     public Drawable getIcon() {
         return icon;
@@ -69,5 +89,19 @@ public class AppInfoBean {
 
     public void setSourceDir(String sourceDir) {
         this.sourceDir = sourceDir;
+    }
+
+    @Override
+    public String toString() {
+        return "AppInfoBean{" +
+                "icon=" + icon +
+                ", appName='" + appName + '\'' +
+                ", isSystem=" + isSystem +
+                ", isSD=" + isSD +
+                ", packName='" + packName + '\'' +
+                ", size=" + size +
+                ", sourceDir='" + sourceDir + '\'' +
+                ", memSize=" + memSize +
+                '}';
     }
 }

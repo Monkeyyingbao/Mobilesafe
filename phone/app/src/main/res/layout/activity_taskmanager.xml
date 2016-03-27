@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.itsafe.phone.activity.AppManagerActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 标题-->
+        <TextView
+            style="@style/title_style"
+            android:text="进程管家"/>
+
+        <!--清理进程的按钮 -->
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/iv_clean_selector"/>
+    </RelativeLayout>
+
+    <!--内存信息 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--进程个数的信息 -->
+        <com.itsafe.phone.view.TextProgressView
+            android:id="@+id/tpv_taskmanager_processnumber_mess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <!--内存信息 -->
+        <com.itsafe.phone.view.TextProgressView
+            android:id="@+id/tpv_taskmanager_memory_mess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- ListView-->
+        <ListView
+            android:id="@+id/lv_taskmanager_viewdatas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/tv_taskmanager_lvtag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ff888888"
+            android:text="用户软件(3)"
+            android:textColor="#ffffffff"
+            android:visibility="gone"
+            />
+        <!-- 进度条-->
+        <include layout="@layout/progressbar_circle"/>
+    </FrameLayout>
+
+    <!--全选和反选按钮-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:background="@drawable/selector_bt_gv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="全选"
+            android:textSize="18sp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_bt_gv"
+            android:text="反选"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.itsafe.phone.utils;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 
@@ -50,6 +51,37 @@ public class AppInfoUtils {
     }
 
     /**
+     *
+     * @param context
+     * @param bean 一定要先设置包名,就可以吧其他属性封装
+     * @throws PackageManager.NameNotFoundException
+     */
+    public static void getAppInfo(Context context,AppInfoBean bean) throws PackageManager.NameNotFoundException {
+        PackageManager pm = context.getPackageManager();
+        ApplicationInfo applicationInfo = pm.getApplicationInfo(bean.getPackName(),0);
+
+        //图标
+        bean.setIcon(applicationInfo.loadIcon(pm));
+        //名字
+        bean.setAppName(applicationInfo.loadLabel(pm) + "");
+
+        if ((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+            //是系统app
+            bean.setIsSystem(true);
+        }
+        if ((applicationInfo.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0) {
+            //安装在sd卡中
+            bean.setIsSD(true);
+        }
+
+        //路径
+        bean.setSourceDir(applicationInfo.sourceDir);
+
+        //安装文件的大小
+        bean.setSize(new File(applicationInfo.sourceDir).length());
+    }
+
+    /**
      * @return 获取所有安装的app信息
      */
     public static List<AppInfoBean> getAllInstalledAppInfos(Context context) {
@@ -62,32 +94,24 @@ public class AppInfoUtils {
             //组织数据
             bean = new AppInfoBean();
 
-            //包名
             bean.setPackName(applicationInfo.packageName);
-            //图标
-            bean.setIcon(applicationInfo.loadIcon(pm));
-            //名字
-            bean.setAppName(applicationInfo.loadLabel(pm) + "");
 
-            if ((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
-                //是系统app
-                bean.setIsSystem(true);
+            try {
+                getAppInfo(context, bean);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
             }
-
-            if ((applicationInfo.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0) {
-                //安装在sd卡中
-                bean.setIsSD(true);
-            }
-
-            //路径
-            bean.setSourceDir(applicationInfo.sourceDir);
-
-            //安装文件的大小
-            bean.setSize(new File(applicationInfo.sourceDir).length());
 
             datas.add(bean);
         }
 
         return datas;
+    }
+
+    //获取总app个数
+    public static int getAllInstalledAppNumber(Context context) {
+        PackageManager pm = context.getPackageManager();
+        List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
+        return installedPackages.size();
     }
 }
