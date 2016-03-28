@@ -1,6 +1,7 @@
 package com.itsafe.phone.activity;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,10 +19,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.itsafe.phone.R;
 import com.itsafe.phone.domain.AppInfoBean;
 import com.itsafe.phone.utils.AppInfoUtils;
+import com.itsafe.phone.utils.SPUtils;
+import com.itsafe.phone.utils.StrUtils;
 import com.itsafe.phone.utils.TaskInfoUtils;
 import com.itsafe.phone.view.TextProgressView;
 
@@ -49,6 +53,7 @@ public class TaskManagerActivity extends Activity {
     private long mAvailMen;
     private int mAllInstalledAppNumber;
     private MyAdapter mAdapter;
+    private ActivityManager mAm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +133,7 @@ public class TaskManagerActivity extends Activity {
                     mTpv_processnumber_info.setProgress(taskNumber * 1.0 / mAllInstalledAppNumber);
 
                     //2.内存的使用
-                    mTpv_memory_info.setMessage("可用内存/总内存:" + Formatter.formatFileSize(getApplicationContext(),mAvailMen) + "/" + Formatter.formatFileSize(getApplicationContext(),mTotalMen));
+                    mTpv_memory_info.setMessage("可用内存/总内存:" + Formatter.formatFileSize(getApplicationContext(), mAvailMen) + "/" + Formatter.formatFileSize(getApplicationContext(), mTotalMen));
                     mTpv_memory_info.setProgress((mTotalMen - mAvailMen) * 1.0 / mTotalMen);
 
                     //lv的数据更新
@@ -295,5 +300,137 @@ public class TaskManagerActivity extends Activity {
         mLl_loading = (LinearLayout) findViewById(R.id.ll_progressbar_root);
         //lv的tag
         mTv_tag = (TextView) findViewById(R.id.tv_taskmanager_lvtag);
+
+        mAm = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+    }
+
+    /**
+     * 全选按钮点击事件
+     *
+     * @param view
+     */
+    public void selectAll(View view) {
+        //user
+        for (AppInfoBean bean : userAppInfoBeans) {
+            //过滤自己
+            if (bean.getPackName().equals(getPackageName())) {
+                continue;
+            }
+            //设置反选状态
+            bean.setIsChecked(true);
+        }
+
+        //system
+        for (AppInfoBean bean : sysAppInfoBeans) {
+
+            //设置反选状态
+            bean.setIsChecked(true);
+        }
+
+        //通知UI
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 反选按钮点击事件
+     *
+     * @param view
+     */
+    public void selectNone(View view) {
+        //user
+        for (AppInfoBean bean : userAppInfoBeans) {
+            //过滤自己
+            if (bean.getPackName().equals(getPackageName())) {
+                continue;
+            }
+            //设置反选状态
+            bean.setIsChecked(!bean.isChecked());
+        }
+
+        //system
+        for (AppInfoBean bean : sysAppInfoBeans) {
+
+            //设置反选状态
+            bean.setIsChecked(!bean.isChecked());
+        }
+        //通知UI
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 清理选中的进程
+     *
+     * @param view
+     */
+    public void clearTask(View view) {
+        long clearSize = 0;//记录清理的总内存大小
+        int clearNumber = 0;//记录清理的进程个数
+
+        for (int i = 0; i < userAppInfoBeans.size(); i++) {
+            AppInfoBean bean = userAppInfoBeans.get(i);
+            if (bean.isChecked()) {
+                clearNumber++;
+                clearSize += bean.getMemSize();
+                //清理
+                mAm.killBackgroundProcesses(bean.getPackName());
+                //界面效果
+                userAppInfoBeans.remove(i--);
+            }
+        }
+
+        for (int i = 0; i < sysAppInfoBeans.size(); i++) {
+            AppInfoBean bean = sysAppInfoBeans.get(i);
+            if (bean.isChecked()) {
+                clearNumber++;
+                clearSize += bean.getMemSize();
+                //清理
+                mAm.killBackgroundProcesses(bean.getPackName());
+                //界面效果
+                sysAppInfoBeans.remove(i--);
+            }
+        }
+
+        //提醒清理工作
+        Toast.makeText(getApplicationContext(), "清理了" + clearNumber + "个进程,释放了" + Formatter.formatFileSize(getApplicationContext(), clearSize) + "内存", Toast.LENGTH_SHORT).show();
+
+        //listview界面更新
+        mAdapter.notifyDataSetChanged();
+
+        //进程个数和使用内存更新
+        //1.显示进程个数的信息
+        int taskNumber = (userAppInfoBeans.size() + sysAppInfoBeans.size());
+        mTpv_processnumber_info.setMessage("运行中的进程:" + taskNumber);
+        mTpv_processnumber_info.setProgress(taskNumber * 1.0 / mAllInstalledAppNumber);
+
+        //2.内存的使用
+        mTpv_memory_info.setMessage("可用内存/总内存:" + Formatter.formatFileSize(getApplicationContext(), (mAvailMen + clearSize)) + "/" + Formatter.formatFileSize(getApplicationContext(), mTotalMen));
+        mTpv_memory_info.setProgress((mTotalMen - (mAvailMen + clearSize)) * 1.0 / mTotalMen);
+
+        //记录清理时间
+        if ((sysAppInfoBeans.size() + userAppInfoBeans.size()) < 3) {
+            SPUtils.putLong(getApplicationContext(), StrUtils.CLEARTIME, System.currentTimeMillis());
+        }
+
+        //user
+        /*for (AppInfoBean bean : userAppInfoBeans) {
+            if (bean.isChecked()) {
+                //清理
+                mAm.killBackgroundProcesses(bean.getPackName());
+                //界面效果
+                userAppInfoBeans.remove(bean);//并发修改异常
+            }
+        }
+
+        //system
+        for (AppInfoBean bean : sysAppInfoBeans) {
+            if (bean.isChecked()) {
+                //清理
+                mAm.killBackgroundProcesses(bean.getPackName());
+                //界面效果
+                sysAppInfoBeans.remove(bean);//并发修改异常
+            }
+        }*/
+
+
     }
 }

@@ -18,6 +18,7 @@
 
         <!--清理进程的按钮 -->
         <ImageView
+            android:onClick="clearTask"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
@@ -60,6 +61,7 @@
         </ListView>
 
         <TextView
+            android:clickable="true"
             android:id="@+id/tv_taskmanager_lvtag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,6 +70,7 @@
             android:textColor="#ffffffff"
             android:visibility="gone"
             />
+
         <!-- 进度条-->
         <include layout="@layout/progressbar_circle"/>
     </FrameLayout>
@@ -78,6 +81,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            android:onClick="selectAll"
             android:background="@drawable/selector_bt_gv"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -86,6 +90,7 @@
             android:textSize="18sp"/>
 
         <Button
+            android:onClick="selectNone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

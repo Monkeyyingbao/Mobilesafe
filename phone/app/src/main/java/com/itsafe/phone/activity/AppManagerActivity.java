@@ -481,4 +481,5 @@ public class AppManagerActivity extends Activity {
         mTvp_rom_mess = (TextProgressView) findViewById(R.id.tpv_appmanager_rom_mess);
         mMTvp_sd_mess = (TextProgressView) findViewById(R.id.tpv_appmanager_sd_mess);
     }
+
 }

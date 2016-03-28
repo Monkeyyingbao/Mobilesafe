@@ -42,4 +42,14 @@ public class SPUtils {
         return sp.getInt(key, defaultval);
     }
 
+    public static void putLong(Context context, String key, long value) {
+        SharedPreferences sp = context.getSharedPreferences(StrUtils.SP_CONFIG, 0);
+        sp.edit().putLong(key, value).commit();
+    }
+
+    public static long getLong(Context context, String key, long defaultval) {
+        SharedPreferences sp = context.getSharedPreferences(StrUtils.SP_CONFIG, 0);
+        return sp.getLong(key, defaultval);
+    }
+
 }

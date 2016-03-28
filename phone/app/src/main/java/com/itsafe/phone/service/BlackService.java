@@ -54,6 +54,8 @@ public class BlackService extends Service {
     @Override
     public void onCreate() {
 
+        //提高服务级别
+
         mBlackDao = new BlackDao(getApplicationContext());
         //服务的创建
         System.out.println("打开服务");
@@ -63,6 +65,7 @@ public class BlackService extends Service {
         registTelintercept();
         super.onCreate();
     }
+
 
 
     private void registTelintercept() {

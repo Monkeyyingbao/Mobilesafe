@@ -20,4 +20,5 @@ public interface StrUtils {
     String TOASTY = "toasty";
     String LOCATIONSTYLEINDEX = "locationstyleindex";
     byte MUSIC = 99;
+    String CLEARTIME = "cleartime";
 }

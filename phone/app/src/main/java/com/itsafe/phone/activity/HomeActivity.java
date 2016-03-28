@@ -90,6 +90,14 @@ public class HomeActivity extends Activity {
                         startActivity(appManager);
                         break;
                     case 3://进程管理
+                        //时间判断
+                        long currentTimeMillis = System.currentTimeMillis();
+                        long clearTime = SPUtils.getLong(getApplicationContext(), StrUtils.CLEARTIME, 0);
+                        long dis = currentTimeMillis - clearTime;
+                        if (dis < 30000) {
+                            Toast.makeText(HomeActivity.this, "您的手机非常干净,无需清理", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         Intent taskManager = new Intent(HomeActivity.this, TaskManagerActivity.class);
                         startActivity(taskManager);
                         break;
