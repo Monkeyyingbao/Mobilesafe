@@ -85,10 +85,12 @@ public class HomeActivity extends Activity {
                         Intent black = new Intent(HomeActivity.this, AndroidBlackActivity.class);
                         startActivity(black);
                         break;
+
                     case 2://软件管家
                         Intent appManager = new Intent(HomeActivity.this,AppManagerActivity.class);
                         startActivity(appManager);
                         break;
+
                     case 3://进程管理
                         //时间判断
                         long currentTimeMillis = System.currentTimeMillis();
@@ -101,6 +103,17 @@ public class HomeActivity extends Activity {
                         Intent taskManager = new Intent(HomeActivity.this, TaskManagerActivity.class);
                         startActivity(taskManager);
                         break;
+
+                    case 5://病毒查杀
+                        Intent antiVirus = new Intent(HomeActivity.this,AntiVirusActivity.class);
+                        startActivity(antiVirus);
+                        break;
+
+                    case 6://缓存清理
+                        Intent cacheInfo = new Intent(HomeActivity.this, CacheInfoActivity.class);
+                        startActivity(cacheInfo);
+                        break;
+
                     case 7://高级工具
                         Intent atool = new Intent(HomeActivity.this,AToolActivity.class);
                         startActivity(atool);

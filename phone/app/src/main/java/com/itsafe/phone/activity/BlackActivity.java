@@ -36,7 +36,7 @@ import java.util.List;
 
 
 /**
- * h黑名单管理的界面
+ * 黑名单管理的界面
  */
 public class BlackActivity extends Activity {
 

@@ -100,6 +100,8 @@ public class BlackDao {
             data.setMode(cursor.getInt(1));
             datas.add(data);
         }
+        database.close();
+        cursor.close();
         return datas;
     }
 
@@ -126,6 +128,8 @@ public class BlackDao {
             data.setMode(cursor.getInt(1));
             beans.add(data);
         }
+        database.close();
+        cursor.close();
         return beans;
     }
 
@@ -151,6 +155,8 @@ public class BlackDao {
             data.setMode(cursor.getInt(1));
             beans.add(data);
         }
+        database.close();
+        cursor.close();
         return beans;
 
     }
@@ -161,6 +167,7 @@ public class BlackDao {
         if (cursor.moveToNext()) {
             totalRows = cursor.getInt(0);
         }
+        database.close();
         cursor.close();
 
         return totalRows;
@@ -179,6 +186,7 @@ public class BlackDao {
         if (cursor.moveToNext()) {
             mode = cursor.getInt(0);//获取模式
         }
+        database.close();
         cursor.close();
         return mode;
     }

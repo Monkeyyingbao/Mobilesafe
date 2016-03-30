@@ -238,6 +238,8 @@ public class SplashActivity extends Activity {
                 copyFileThread("address.db");
                 //服务号码文件拷贝
                 copyFileThread("commonnum.db");
+                //病毒数据库的拷贝
+                copyFileThread("antivirus.db");
                 //动画开始:初始化数据(子线程),初始化网络(子线程),版本更新
                 //如果用户勾选了应用更新提示,要执行版本检测
                 if (SPUtils.getBoolean(SplashActivity.this, StrUtils.AUTO_CHECK_VERSION, false)) {

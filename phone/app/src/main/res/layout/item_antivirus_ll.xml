@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <!-- app图标-->
+    <ImageView
+        android:layout_margin="5dp"
+        android:id="@+id/iv_item_antivirus_lv_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_launcher"/>
+
+    <!-- app的名字和安装位置-->
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/iv_item_antivirus_lv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- app名字-->
+        <TextView
+            android:id="@+id/tv_item_antivirus_lv_appname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="软件管家"/>
+    </LinearLayout>
+
+    <!-- 占用的大小-->
+    <ImageView
+        android:src="@mipmap/check_status_green"
+        android:layout_margin="5dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/iv_item_antivirus_isvirus"
+        android:layout_width="35dp"
+        android:layout_height="35dp"/>
+</RelativeLayout>
