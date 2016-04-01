@@ -39,6 +39,7 @@ public class AddressDao {
             serviceNameAndTypes.add(bean);
         }
         cursor.close();
+        database.close();
         return serviceNameAndTypes;
     }
     /**
@@ -59,6 +60,7 @@ public class AddressDao {
             serviceNameAndTypes.add(bean);
         }
         cursor.close();
+        database.close();
         return serviceNameAndTypes;
     }
     /**
@@ -102,6 +104,7 @@ public class AddressDao {
             location = cursor.getString(0);
         }
         cursor.close();
+        database.close();
         return location;
     }
 
@@ -120,6 +123,7 @@ public class AddressDao {
             location = cursor.getString(0);
         }
         cursor.close();
+        database.close();
         return location;
     }
 }

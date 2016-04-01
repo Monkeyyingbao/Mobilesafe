@@ -12,6 +12,7 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.BaseAdapter;
@@ -166,7 +167,7 @@ public class BlackActivity extends Activity {
         tv_sms.setOnClickListener(mListener);
         tv_friends.setOnClickListener(mListener);
 
-        mPW = new PopupWindow(mContentView, 130, -2);
+        mPW = new PopupWindow(mContentView, WindowManager.LayoutParams.WRAP_CONTENT, -2);
         //设置参数
         mPW.setFocusable(true);
         //设置背景 作用1.外部点击事件生效  2.播放动画

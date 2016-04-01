@@ -73,7 +73,7 @@
 
                 <com.github.lzyzsd.circleprogress.CircleProgress
                     android:id="@+id/cp_antivirus_progress"
-                    custom:circle_progress="20"
+                    custom:circle_progress="0"
                     android:layout_width="100dp"
                     android:layout_height="100dp"/>
 

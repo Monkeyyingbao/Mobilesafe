@@ -8,6 +8,16 @@ import android.graphics.drawable.Drawable;
  */
 public class AppInfoBean {
 
+    private int uid;
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
     private boolean isChecked;
 
     public boolean isChecked() {

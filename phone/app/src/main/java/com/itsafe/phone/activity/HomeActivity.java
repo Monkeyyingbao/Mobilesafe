@@ -104,6 +104,12 @@ public class HomeActivity extends Activity {
                         startActivity(taskManager);
                         break;
 
+                    case 4://流量统计
+                        Intent connectivity = new Intent(HomeActivity.this, ConnectivityActivity.class);
+                        startActivity(connectivity);
+                        break;
+
+
                     case 5://病毒查杀
                         Intent antiVirus = new Intent(HomeActivity.this,AntiVirusActivity.class);
                         startActivity(antiVirus);

@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -347,8 +346,6 @@ public class AntiVirusActivity extends AppCompatActivity {
                     Message msg = mHandler.obtainMessage(SCANING);
                     msg.obj = info;
                     mHandler.sendMessage(msg);
-
-                    SystemClock.sleep(100);
 
                 }
 

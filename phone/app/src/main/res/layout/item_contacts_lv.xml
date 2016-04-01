@@ -8,11 +8,13 @@
         android:id="@+id/tv_item_contact_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="andy"/>
+        android:text="andy"
+        android:textColor="#ff888888"/>
     <!-- 号码-->
     <TextView
         android:id="@+id/tv_item_contact_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="110"/>
+        android:text="110"
+        android:textColor="#ff888888"/>
 </LinearLayout>

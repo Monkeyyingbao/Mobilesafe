@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">手机安全卫士</string>
-    <string name="version_url">http://192.168.1.7:8080/version.json</string>
+    <string name="version_url">http://192.168.1.5:8080/version.json</string>
     <string name="sample_device_admin_description">不开启手机无法找回</string>
-    <string name="sample_device_admin">手机卫士</string>
+    <string name="sample_device_admin">手accessibility_service_label机卫士</string>
+    <string name="accessibility_service_label">看门狗</string>
+    <string name="accessibility_service_description">打开此服务完成看门狗的监控</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

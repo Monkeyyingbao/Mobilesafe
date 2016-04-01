@@ -50,7 +50,27 @@ public class SplashActivity extends Activity {
     private RelativeLayout mRl_splash;
     private TextView mTv_version;
     private AnimationSet mAs;
-    private Handler mHandler = new Handler(){
+
+    private int mVersionCode;//当前版本号
+
+    private String mVersionName;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //界面
+        initView();
+        //数据
+        initData();
+        //初始化动画
+        initAnimation();
+        //事件
+        initEvent();
+    }
+
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
 
@@ -64,8 +84,8 @@ public class SplashActivity extends Activity {
                 case StrUtils.IS_UPDATE:
                     AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
                     builder.setCancelable(false);//对话框不可撤销
-                    builder.setTitle("下载新版本" + VersionInfo.versionName+VersionInfo.versionCode);
-                    builder.setMessage(VersionInfo.description);
+                    builder.setTitle("下载新版本" + mVersionInfo.versionName + mVersionInfo.versionCode);
+                    builder.setMessage(mVersionInfo.description);
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -110,17 +130,17 @@ public class SplashActivity extends Activity {
         HttpUtils httpUtils = new HttpUtils();
         final File sdDir = Environment.getExternalStorageDirectory();
         //先判断文件夹中是否存在,如果存在要先删除
-        File oldApk = new File(sdDir,"mobilesafe.apk");
+        File oldApk = new File(sdDir, "mobilesafe.apk");
         if (oldApk.exists()) {
             oldApk.delete();
         }
-        httpUtils.download(VersionInfo.download, sdDir.getAbsolutePath()+"/mobilesafe.apk",true,true, new RequestCallBack<File>() {
+        httpUtils.download(mVersionInfo.download, sdDir.getAbsolutePath() + "/mobilesafe.apk", true, true, new RequestCallBack<File>() {
             @Override
             public void onSuccess(ResponseInfo<File> responseInfo) {
                 //下载成功提示安装
                 Toast.makeText(SplashActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
                /*系统安装器的意图过滤器
-				<intent-filter>
+                <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="content" />
@@ -131,19 +151,20 @@ public class SplashActivity extends Activity {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
                 intent.addCategory("android.intent.category.DEFAULT");
-                File file = new File(Environment.getExternalStorageDirectory(),"mobilesafe.apk");
+                File file = new File(Environment.getExternalStorageDirectory(), "mobilesafe.apk");
                 intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-                startActivityForResult(intent,1);
+                startActivityForResult(intent, 1);
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
                 //下载失败
-                Log.i("onFailure", "onFailure: "+s);
+                Log.i("onFailure", "onFailure: " + s);
                 startHome();
             }
         });
     }
+
     //监控打开的Activity结果
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -152,23 +173,9 @@ public class SplashActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private int mVersionCode;//当前版本号
-    private String mVersionName;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        //界面
-        initView();
-        //数据
-        initData();
-        //事件
-        initEvent();
-    }
-
     /**
      * 拷贝到//data/data/com.itsafe.phone
+     *
      * @param dbFileName 数据库的文件名(asset目录)
      */
     private void copyDB(String dbFileName) throws IOException {
@@ -190,7 +197,7 @@ public class SplashActivity extends Activity {
         int len = inputStream.read(buffer);
         while (len != -1) {
             //写数据
-            fos.write(buffer,0,len);
+            fos.write(buffer, 0, len);
             fos.flush();//刷新缓冲区的内容到目的地
             //继续读取
             len = inputStream.read(buffer);
@@ -207,8 +214,9 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
         mRl_splash = (RelativeLayout) findViewById(R.id.rl_splash);
         mTv_version = (TextView) findViewById(R.id.tv_version);
-        initAnimation();
+
     }
+
     /**
      * 初始化数据
      */
@@ -219,7 +227,7 @@ public class SplashActivity extends Activity {
             PackageInfo info = pm.getPackageInfo(this.getPackageName(), 0);
             mVersionCode = info.versionCode;
             mVersionName = info.versionName;
-            mTv_version.setText(mVersionName+mVersionCode);
+            mTv_version.setText(mVersionName + mVersionCode);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -251,7 +259,7 @@ public class SplashActivity extends Activity {
 
             //耗时线程拷贝文件
             private void copyFileThread(final String fileName) {
-                new Thread(){
+                new Thread() {
                     @Override
                     public void run() {
                         try {
@@ -288,7 +296,7 @@ public class SplashActivity extends Activity {
 
     private void checkVersion() {
         //检测版本//安装//界面跳转
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 System.out.println("开始请求网络");
@@ -314,7 +322,7 @@ public class SplashActivity extends Activity {
             conn.setConnectTimeout(5000);
             conn.setReadTimeout(5000);
             int code = conn.getResponseCode();
-            System.out.println("结果码"+code);
+            System.out.println("结果码" + code);
             if (code == 200) {
                 InputStream is = conn.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is, "gb2312"));
@@ -328,15 +336,16 @@ public class SplashActivity extends Activity {
                 String json = sb.toString();
                 //解析json数据
                 JSONObject jsonObject = new JSONObject(json);
-                VersionInfo.versionCode = jsonObject.getInt("versioncode");
-                VersionInfo.versionName = jsonObject.getString("versionname");
-                VersionInfo.description = jsonObject.getString("description");
-                VersionInfo.download = jsonObject.getString("download");
-                Log.i("json", "readUrlData: " + VersionInfo.versionCode + VersionInfo.versionName + VersionInfo.description + VersionInfo.download);
+                mVersionInfo = new VersionInfo();
+                mVersionInfo.versionCode = jsonObject.getInt("versioncode");
+                mVersionInfo.versionName = jsonObject.getString("versionname");
+                mVersionInfo.description = jsonObject.getString("description");
+                mVersionInfo.download = jsonObject.getString("download");
+                Log.i("json", "readUrlData: " + mVersionInfo.versionCode + mVersionInfo.versionName + mVersionInfo.description + mVersionInfo.download);
 
                 //判断是否需要更新,并提示
                 System.out.println("判断是否需要更新,并提示");
-                if (mVersionCode == VersionInfo.versionCode) {
+                if (mVersionCode == mVersionInfo.versionCode) {
                     //提示最新版
                     msg.what = StrUtils.BEST_VERSION;
                 } else {
@@ -358,29 +367,31 @@ public class SplashActivity extends Activity {
         } catch (JSONException e) {
             msg.what = 1003;
             e.printStackTrace();
-        }finally {
+        } finally {
             long endTime = System.currentTimeMillis();
-            if ((endTime-startTime) < 2000) {
+            if ((endTime - startTime) < 2000) {
                 SystemClock.sleep(2000 - (endTime - startTime));
             }
-        mHandler.sendMessage(msg);
+            mHandler.sendMessage(msg);
         }
     }
 
-    private static class VersionInfo {
-        private static int versionCode;
-        private static String versionName;
-        private static String description;
-        private static String download;
+    private VersionInfo mVersionInfo;
+
+    private class VersionInfo {
+        int versionCode;
+        String versionName;
+        String description;
+        String download;
 
     }
 
     private void initAnimation() {
         //补间动画
         //旋转动画
-        RotateAnimation ra = new RotateAnimation(0,360, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+        RotateAnimation ra = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         //比例动画
-        ScaleAnimation sa = new ScaleAnimation(0.0f,1.0f,0.0f,1.0f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+        ScaleAnimation sa = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         //渐变动画
         AlphaAnimation aa = new AlphaAnimation(0.0f, 1.0f);
         //动画集

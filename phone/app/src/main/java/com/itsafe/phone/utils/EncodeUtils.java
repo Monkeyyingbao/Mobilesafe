@@ -15,7 +15,7 @@ public class EncodeUtils {
     public static String encode(String s,byte seed) {
         try {
             byte[] bytes = s.getBytes("gbk");
-            for (int i = 0; i <= bytes.length; i++) {
+            for (int i = 0; i < bytes.length; i++) {
                 bytes[i] ^= seed;
             }
             return new String(bytes, "gbk");

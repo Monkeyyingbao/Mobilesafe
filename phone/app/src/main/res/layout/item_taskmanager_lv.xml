@@ -24,13 +24,15 @@
             android:id="@+id/tv_taskmanager_lv_appname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="软件管家"/>
+            android:text="软件管家"
+            android:textColor="#ff888888"/>
         <!-- 安装位置-->
         <TextView
             android:id="@+id/tv_taskmanager_lv_appmemorysize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="内存: 22kb"/>
+            android:text="内存: 22kb"
+            android:textColor="#ff888888"/>
     </LinearLayout>
 
     <!-- 占用的大小-->

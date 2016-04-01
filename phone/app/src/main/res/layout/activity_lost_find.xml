@@ -20,9 +20,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="安全号码"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
+            android:text="安全号码"
             android:textColor="#ffffff"/>
         <!-- 图标-->
         <TextView
@@ -33,13 +33,13 @@
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
             android:text="11111"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"/>
     </RelativeLayout>
 
     <!-- 防盗保护是否开启 -->
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="fill_parent"
@@ -47,7 +47,7 @@
             android:background="@drawable/dg_btn_confirm_select"
             android:gravity="center_vertical"
             android:text="防盗保护是否开启"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"/>
 
         <!-- 标记是否绑定sim卡的图标 -->
 
@@ -57,7 +57,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dip"
-            android:src="@mipmap/lock" />
+            android:src="@mipmap/lock"/>
     </RelativeLayout>
     <!-- 重新进入设置向导界面 -->
 
@@ -67,29 +67,46 @@
         android:layout_height="wrap_content"
         android:background="@drawable/dg_btn_confirm_select"
         android:clickable="true"
-        android:onClick="enterSetup1"
         android:gravity="center_vertical"
+        android:onClick="enterSetup1"
         android:text="重新进入设置向导界面"
-        android:textColor="#ffffff" />
-    <!-- 4个功能描述信息-->
-    <TextView
-        style="@style/lostfind_desc_style"
-        android:text="sim卡变更报警"/>
+        android:textColor="#ffffff"/>
 
-    <TextView
-        style="@style/lostfind_desc_style"
-        android:text="GPS追踪*#gps*#"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        style="@style/lostfind_desc_style"
-        android:text="远程锁屏*#lockscreen*#"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- 4个功能描述信息-->
+            <TextView
+                style="@style/lostfind_desc_style"
+                android:text="sim卡变更报警"
+                android:textColor="#ff888888"/>
 
-    <TextView
-        style="@style/lostfind_desc_style"
-        android:text="远程清楚数据*#wipedata*#"/>
+            <TextView
+                style="@style/lostfind_desc_style"
+                android:text="GPS追踪*#gps*#"
+                android:textColor="#ff888888"/>
 
-    <TextView
-        style="@style/lostfind_desc_style"
-        android:text="播放报警音乐*#music*#"/>
+            <TextView
+                style="@style/lostfind_desc_style"
+                android:text="远程锁屏*#lockscreen*#"
+                android:textColor="#ff888888"/>
+
+            <TextView
+                style="@style/lostfind_desc_style"
+                android:text="远程清楚数据*#wipedata*#"
+                android:textColor="#ff888888"/>
+
+            <TextView
+                style="@style/lostfind_desc_style"
+                android:text="播放报警音乐*#music*#"
+                android:textColor="#ff888888"/>
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

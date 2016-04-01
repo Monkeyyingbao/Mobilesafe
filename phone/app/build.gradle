@@ -22,11 +22,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.0'
     compile files('libs/xUtils-2.6.8.jar')
     compile files('libs/gson-2.2.1.jar')
-    compile 'com.daimajia.numberprogressbar:library:1.2@aar'
-    compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile files('libs/RootTools.jar')
     compile files('libs/MobCommons-2016.0301.1053.jar')
     compile files('libs/MobTools-2016.0301.1053.jar')
@@ -44,5 +41,9 @@ dependencies {
     compile files('libs/ShareSDK-Wechat-Core-2.7.0.jar')
     compile files('libs/ShareSDK-Wechat-Favorite-2.7.0.jar')
     compile files('libs/ShareSDK-Wechat-Moments-2.7.0.jar')
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.daimajia.numberprogressbar:library:1.2@aar'
+    compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
+    compile 'com.android.support:support-v4:23.2.0'
 }

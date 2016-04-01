@@ -101,6 +101,7 @@ public class AppInfoUtils {
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
+            bean.setUid(applicationInfo.uid);
 
             datas.add(bean);
         }
@@ -114,4 +115,6 @@ public class AppInfoUtils {
         List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
         return installedPackages.size();
     }
+
+
 }

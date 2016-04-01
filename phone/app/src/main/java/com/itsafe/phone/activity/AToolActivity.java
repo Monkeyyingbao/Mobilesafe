@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.itsafe.phone.R;
+import com.itsafe.phone.utils.ServiceUtils;
 import com.itsafe.phone.utils.SmsUtils;
 import com.itsafe.phone.view.SettingCenterItem;
 
@@ -18,6 +19,9 @@ public class AToolActivity extends Activity {
     private SettingCenterItem mSci_smsbackup;
     private SettingCenterItem mSci_smsrecovery;
     private NumberProgressBar mPb;
+    private SettingCenterItem mSci_applock;
+    private SettingCenterItem mSci_dogthread;
+    private SettingCenterItem mSci_dogaccessibility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,18 @@ public class AToolActivity extends Activity {
         initView();
 
         initEvent();
+
+        initData();
+    }
+
+    private void initData() {
+        // 初始化看门狗accessibility版
+        mSci_dogaccessibility.setToggleOn(ServiceUtils.isServiceRunning(
+                getApplicationContext(),
+                "com.itsafe.phone.service.MyAccessibilityService"));
+        mSci_dogthread.setToggleOn(ServiceUtils.isServiceRunning(
+                getApplicationContext(),
+                "com.itsafe.phone.service.WatchDogService"));
     }
 
     private void initEvent() {
@@ -52,6 +68,22 @@ public class AToolActivity extends Activity {
                         System.out.println("短信的还原");
                         smsRecovery();
                         break;
+                    case R.id.sci_atool_applock:
+                        //程序锁
+                        Intent applock = new Intent(AToolActivity.this, AppLockActivity.class);
+                        startActivity(applock);
+                        break;
+                    case R.id.sci_atool_watchdog2:
+                        if (isOpen) {
+                            //启动线程
+                            Intent service = new Intent(getApplicationContext(), com.itsafe.phone.service.WatchDogService.class);
+                            startService(service);
+                        } else {
+                            //关闭服务
+                            Intent service = new Intent(getApplicationContext(), com.itsafe.phone.service.WatchDogService.class);
+                            stopService(service);
+                        }
+                        break;
                 }
             }
         };
@@ -60,6 +92,8 @@ public class AToolActivity extends Activity {
         mSci_servicequery.setOnToggleChangedListener(listener);
         mSci_smsbackup.setOnToggleChangedListener(listener);
         mSci_smsrecovery.setOnToggleChangedListener(listener);
+        mSci_applock.setOnToggleChangedListener(listener);
+        mSci_dogthread.setOnToggleChangedListener(listener);
     }
 
     private void smsRecovery() {
@@ -114,5 +148,10 @@ public class AToolActivity extends Activity {
 
         mPb = (NumberProgressBar) findViewById(R.id.number_progress_bar);
         mPb.setVisibility(View.GONE);
+
+        mSci_applock = (SettingCenterItem) findViewById(R.id.sci_atool_applock);
+        mSci_dogaccessibility = (SettingCenterItem) findViewById(R.id.sci_atool_watchdog1);
+        mSci_dogthread = (SettingCenterItem) findViewById(R.id.sci_atool_watchdog2);
+
     }
 }

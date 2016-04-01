@@ -9,17 +9,19 @@
     tools:context="com.itsafe.phone.activity.AToolActivity">
 
     <!-- 标题-->
-    <TextView style="@style/title_style"
+    <TextView
+        style="@style/title_style"
         android:text="高级工具"/>
 
     <!-- 电话归属地查询-->
     <com.itsafe.phone.view.SettingCenterItem
+        android:layout_marginTop="5dp"
         android:id="@+id/sci_atool_mobilephone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         itheima:bgselector="first"
         itheima:desc="电话归属地查询"
-        itheima:isdisabletoggle = "true"/>
+        itheima:isdisabletoggle="true"/>
 
     <com.itsafe.phone.view.SettingCenterItem
         android:id="@+id/sci_atool_servicephone"
@@ -31,6 +33,7 @@
 
     <!-- 短信的备份-->
     <com.itsafe.phone.view.SettingCenterItem
+        android:layout_marginTop="5dp"
         android:id="@+id/sci_atool_smsbackup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,6 +56,32 @@
         style="@style/NumberProgressBar_Default"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        />
+
+    <!-- 程序锁-->
+    <com.itsafe.phone.view.SettingCenterItem
+        android:layout_marginTop="5dp"
+        android:id="@+id/sci_atool_applock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        itheima:bgselector="first"
+        itheima:desc="程序锁"
+        itheima:isdisabletoggle="true"/>
+
+    <com.itsafe.phone.view.SettingCenterItem
+        android:id="@+id/sci_atool_watchdog1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        itheima:bgselector="middle"
+        itheima:desc="看门狗1"
+        />
+
+    <com.itsafe.phone.view.SettingCenterItem
+        android:id="@+id/sci_atool_watchdog2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        itheima:bgselector="last"
+        itheima:desc="看门狗2"
         />
 
 </LinearLayout>

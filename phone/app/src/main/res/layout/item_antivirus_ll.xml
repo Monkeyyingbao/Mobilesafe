@@ -25,7 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="软件管家"/>
+            android:text="软件管家"
+            android:textColor="#ff888888"/>
     </LinearLayout>
 
     <!-- 占用的大小-->
