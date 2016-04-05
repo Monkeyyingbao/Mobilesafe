@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.itsafe.phone"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.itsafe.phone"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -35,6 +36,7 @@
     <uses-permission android:name="android.permission.GET_TASKS"/>
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -69,6 +71,11 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
+            <!--
+如果集成QQ分享，或者使用QQ客户端来进行QQ空间的分享，须要在此处添加一个对ACTION_VIEW
+事件的过滤器，其中的scheme是“tencent”前缀再开发者应用的加上appId。如果此过滤器不设置，
+则分享结束以后不能得到正确的回调
+           -->
             <intent-filter>
                 <data android:scheme="tencent100371282"/>
 
@@ -110,6 +117,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"/>
         -->
+
 
         <service android:name=".service.LostFindService">
         </service>

@@ -46,4 +46,5 @@ dependencies {
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
     compile 'com.android.support:support-v4:23.2.0'
+    compile files('libs/StartAppInApp-2.4.1.jar')
 }

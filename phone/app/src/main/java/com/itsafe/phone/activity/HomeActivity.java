@@ -30,6 +30,7 @@ public class HomeActivity extends Activity {
     private ImageView mIv_setting;//设置按钮
     private GridView mGv_tools;
 
+
     public static final String[] names = {"手机防盗", "通讯卫士", "软件管家", "进程管理", "流量统计", "病毒查杀", "缓存清理", "高级工具"};
     public static final String[] desc = {"手机丢失好找", "防骚扰防监听", "方便管理软件", "保持手机通畅", "注意流量超标", "手机安全保障", "手机快步如飞", "特性处理更好"};
     public static final int[] icons = {R.mipmap.sjfd, R.mipmap.srlj,
@@ -44,6 +45,7 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         //初始化界面
         initView();
         //开始动画
@@ -53,6 +55,8 @@ public class HomeActivity extends Activity {
         //初始化事件
         initEvent();
     }
+
+
 
     private void initEvent() {
 
